@@ -1,4 +1,4 @@
-<nav id="sidebar" class="active">
+<nav id="sidebar" class="">
     <div class="custom-menu">
       <button type="button" id="sidebarCollapse" class="btn btn-primary">
         <i class="fa fa-bars"></i>
@@ -30,6 +30,9 @@
 			</li>
 			<li class="{{ request()->is('coordinates') ? 'active' : '' }}">
 				<a href="/coordinates"><i class="fas fa-thumbtack mr-3"></i> View Coordinates</a>
+			</li>
+			<li>
+				<a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
 			</li>
       </ul>
 
