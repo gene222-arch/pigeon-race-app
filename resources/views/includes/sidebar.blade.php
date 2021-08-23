@@ -32,7 +32,12 @@
 				<a href="/coordinates"><i class="fas fa-thumbtack mr-3"></i> View Coordinates</a>
 			</li>
 			<li>
-				<a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
+				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
+					<p><i class="fas fa-sign-out-alt mr-3"></i>Logout</p>
+					<form action="{{ route('logout') }}" method="POST" id="logout__form">
+						@csrf
+					</form>
+              	</a>
 			</li>
       </ul>
 
