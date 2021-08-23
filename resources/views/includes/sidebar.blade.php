@@ -17,7 +17,7 @@
 		</div>
       <ul class="list-unstyled components mb-5">
 			<li class="{{ request()->is('/') ? 'active' : '' }}">
-				<a href="#"><span class="fa fa-home mr-3"></span> Dashboard</a>
+				<a href="/"><span class="fa fa-home mr-3"></span> Dashboard</a>
 			</li>
 			<li class="{{ request()->is('player-events') ? 'active' : '' }}">
 				<a href="/player-events"><i class="fas fa-flag mr-3"></i> Player Events</a>
