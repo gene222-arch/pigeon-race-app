@@ -1,11 +1,19 @@
 @extends('layouts.app')
 
+@section('css')
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid login-page-container">
+    <div class="row justify-content-end align-items-center">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-7 login-page-left-col">
+            <img src="{{ asset('storage/pages/login.svg') }}" alt="">
+            <h2 class="text-center py-4" >Best tournaments just for you.</h2>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header text-white login-page-card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -53,7 +61,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary login-btn">
                                     {{ __('Login') }}
                                 </button>
 
@@ -67,6 +75,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center mt-5">
+            @include('includes.footer')
         </div>
     </div>
 </div>
