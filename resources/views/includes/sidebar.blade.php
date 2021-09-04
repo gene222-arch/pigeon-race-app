@@ -9,10 +9,10 @@
 		<h1>
 			<a href="index.html" class="logo">{{ config('app.name') }}</a>
 		</h1>
-		<div class="row">
+		<div class="row mb-5">
 			<div class="col">
-				<h6>ID: <strong>#{{ Auth::user()->id }}</strong></h6>
-				<h6>Primary: <strong>#{{ Auth::user()->id }}</strong></h6>
+				<h6><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</h6>
+				<small class="ml-4">{{ Auth::user()->email }}</small>
 			</div>
 		</div>
       <ul class="list-unstyled components mb-5">
