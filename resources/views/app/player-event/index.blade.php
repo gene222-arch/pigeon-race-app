@@ -31,7 +31,7 @@
 <div class="container-fluid mt-5">
     <div class="card">
       <div class="card-header bg-warning">
-          <h5><i class="fas fa-users fa-1x mr-3"></i>Club List</h5>
+          <h5>Player Events</h5>
       </div>
       <table class="table table-hover">
           <thead class="thead-dark">
