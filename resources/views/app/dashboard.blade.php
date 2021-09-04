@@ -4,7 +4,6 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#" target="_self">Dashbard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">SMS</li>
         </ol>
     </nav>
     <div class="alert alert-info" role="alert">
