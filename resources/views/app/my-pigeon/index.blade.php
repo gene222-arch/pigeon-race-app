@@ -21,14 +21,48 @@
           </thead>
           <tbody>
               <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                <td>
+                    <i class="fas fa-eye text-center"></i>
+                </td>
+                <td></td>
+                <td>
+                    LRPA 1906
+                </td>
+                <td>-</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>Active</td>
+                <td>2021-08-01 02:53:58</td>
+              </tr>
+
+              <tr>
+                <td>
+                    <i class="fas fa-eye text-center"></i>
+                </td>
+                <td></td>
+                <td>
+                    PSU 51428
+                </td>
+                <td>-</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>Active</td>
+                <td>2021-05-16 01:45:02</td>
+              </tr>
+
+              <tr>
+                <td>
+                    <i class="fas fa-eye text-center"></i>
+                </td>
+                <td></td>
+                <td>
+                    MSPA 1269
+                </td>
+                <td>-</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>Active</td>
+                <td>2021-05-01 23:21:37</td>
               </tr>
           </tbody>
       </table>

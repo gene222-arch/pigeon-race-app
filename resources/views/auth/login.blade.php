@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container-fluid login-page-container">
-    <div class="row justify-content-end align-items-center">
+    <div class="row justify-content-end">
         <div class="col-12 col-sm-12 col-md-12 col-lg-7 login-page-left-col">
             <img src="{{ asset('storage/pages/login.svg') }}" alt="">
             <h2 class="text-center py-4" >Best tournaments just for you.</h2>
