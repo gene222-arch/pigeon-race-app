@@ -6,13 +6,11 @@
     </button>
   </div>
 	<div class="p-4">
-		<h1>
-			<a href="index.html" class="logo">{{ config('app.name') }}</a>
-		</h1>
-		<div class="row mb-5">
+		<div class="row mb-5 justify-content-center align-items-center">
+			<img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="60" height="65">
 			<div class="col">
-				<h6><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</h6>
-				<small class="ml-4">{{ Auth::user()->email }}</small>
+				<h6><strong>{{ Auth::user()->name }}</strong></h6>
+				<small>{{ Auth::user()->email }}</small>
 			</div>
 		</div>
       <ul class="list-unstyled components mb-5">

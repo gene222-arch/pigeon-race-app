@@ -8,12 +8,31 @@
 <div class="container-fluid login-page-container">
     <div class="row justify-content-end">
         <div class="col-12 col-sm-12 col-md-12 col-lg-7 login-page-left-col">
-            <img src="{{ asset('storage/pages/login.svg') }}" alt="">
-            <h2 class="text-center py-4" >Best tournaments just for you.</h2>
+            <div class="card" style="width: 100%; height: 86vh">
+                <h1 class="text-center py-4">
+                    <span class="badge badge-secondary">BEST</span>
+                </h1>
+                <h3 class="text-center py-4">
+                    <span class="badge badge-light">TOURNAMENTS JUST FOR</span>
+                </h3>
+                <h1 class="text-center py-4">
+                    <span class="badge badge-secondary">YOU</span>
+                </h1>
+                <p class="text-center py-4">
+                    <i class="fas fa-dove fa-5x text-info"></i>
+                </p>
+                <p class="text-center py-4 text-muted">
+                    We understand your requirement and provide quality works
+                </p>
+            </div>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-5">
             <div class="card">
-                <div class="card-header text-white login-page-card-header">{{ __('Login') }}</div>
+                <div class="card-header text-white login-page-card-header">
+                    <h3>
+                        <strong>{{ __('Login') }}</strong>
+                    </h3>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -22,7 +41,7 @@
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -36,8 +55,15 @@
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <div class="col-md-8">
+                                <input 
+                                    id="password" 
+                                    type="password" 
+                                    class="form-control @error('password') is-invalid @enderror full-width" 
+                                    name="password" 
+                                    required 
+                                    autocomplete="current-password"
+                                >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -60,13 +86,13 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary login-btn">
+                            <div class="col-md-8 offset-md-4 text-right">
+                                <button type="submit" class="btn btn-primary login-btn btn-block">
                                     {{ __('Login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link text-right" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
@@ -75,9 +101,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center mt-5">
-            @include('includes.footer')
         </div>
     </div>
 </div>
