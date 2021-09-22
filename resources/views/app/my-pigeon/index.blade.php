@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid mt-5">
-    @role('Admin')
+    @hasrole('Admin')
         <div class="card my-3 p-3">
             <div class="row align-items-center">
                 <div class="col-5 col-sm-3">
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-    @endrole
+    @endhasrole
     <div class="card">
       <div class="card-header bg-warning">
           <h5>My Pigeons</h5>
@@ -32,8 +32,15 @@
           </thead>
           <tbody>
               <tr>
-                <td>
-                    <i class="fas fa-eye text-center"></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-block">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    @hasrole('Admin')
+                        <button type="button" class="btn btn-warning btn-block">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endhasrole
                 </td>
                 <td></td>
                 <td>
@@ -42,13 +49,22 @@
                 <td>-</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>Active</td>
+                <td>
+                    <span class="badge badge-success">Active</span>
+                </td>
                 <td>2021-08-01 02:53:58</td>
               </tr>
 
               <tr>
-                <td>
-                    <i class="fas fa-eye text-center"></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-block">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    @hasrole('Admin')
+                        <button type="button" class="btn btn-warning btn-block">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endhasrole
                 </td>
                 <td></td>
                 <td>
@@ -57,13 +73,22 @@
                 <td>-</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>Active</td>
+                <td>
+                    <span class="badge badge-success">Active</span>
+                </td>
                 <td>2021-05-16 01:45:02</td>
               </tr>
 
               <tr>
-                <td>
-                    <i class="fas fa-eye text-center"></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-block">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    @hasrole('Admin')
+                        <button type="button" class="btn btn-warning btn-block">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endhasrole
                 </td>
                 <td></td>
                 <td>
@@ -72,7 +97,9 @@
                 <td>-</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>Active</td>
+                <td>
+                    <span class="badge badge-success">Active</span>
+                </td>
                 <td>2021-05-01 23:21:37</td>
               </tr>
           </tbody>

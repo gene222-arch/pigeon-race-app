@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid mt-5">
-    @role('Admin')
+    @hasrole('Admin')
         <div class="card my-3 p-3">
             <div class="row align-items-center">
                 <div class="col-5 col-sm-3">
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-    @endrole
+    @endhasrole
     <div class="card">
       <div class="card-header bg-warning">
           <h5>Tournaments</h5>
@@ -32,10 +32,17 @@
           </thead>
           <tbody>
               <tr>
-                <td>
-                    <i class="fas fa-eye text-center"></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-block">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    @hasrole('Admin')
+                        <button type="button" class="btn btn-warning btn-block">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endhasrole
                 </td>
-                <td>
+                <td class='text-center'>
                     <i class="fas fa-globe-asia"></i>
                 </td>
                 <td>
@@ -47,10 +54,10 @@
                 <td>
                     SRPC
                 </td>
-                <td>
+                <td class="text-center">
                     2
                 </td>
-                <td>
+                <td class="text-center">
                     29
                 </td>
                 <td>
@@ -59,10 +66,17 @@
               </tr>
           
               <tr>
-                <td>
-                    <i class="fas fa-eye text-center"></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-block">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    @hasrole('Admin')
+                        <button type="button" class="btn btn-warning btn-block">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endhasrole
                 </td>
-                <td>
+                <td class='text-center'>
                     <i class="fas fa-globe-asia"></i>
                 </td>
                 <td>
@@ -74,10 +88,10 @@
                 <td>
                     LAP1,2,3    
                 </td>
-                <td>
+                <td class="text-center">
                     2
                 </td>
-                <td>
+                <td class="text-center">
                     75
                 </td>
                 <td>
@@ -86,10 +100,17 @@
               </tr>
 
               <tr>
-                <td>
-                    <i class="fas fa-eye text-center"></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-block">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    @hasrole('Admin')
+                        <button type="button" class="btn btn-warning btn-block">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endhasrole
                 </td>
-                <td>
+                <td class='text-center'>
                     <i class="fas fa-globe-asia"></i>
                 </td>
                 <td>
@@ -101,10 +122,10 @@
                 <td>
                     LAP1,2,3
                 </td>
-                <td>
+                <td class="text-center">
                     2
                 </td>
-                <td>
+                <td class="text-center">
                     70	
                 </td>
                 <td>
