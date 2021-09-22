@@ -19,10 +19,10 @@
                     <span class="badge badge-secondary">YOU</span>
                 </h1>
                 <p class="text-center py-4">
-                    <i class="fas fa-dove fa-5x text-info"></i>
+                    <img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="96" height="100"> 
                 </p>
                 <p class="text-center py-4 text-muted">
-                    We understand your requirement and provide quality works
+                    Easy to use &middot; Secured Server &middot; Quick and Accurate
                 </p>
             </div>
         </div>
