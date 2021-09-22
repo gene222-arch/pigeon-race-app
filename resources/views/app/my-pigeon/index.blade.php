@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="container-fluid mt-5">
+    @role('Admin')
+        <div class="card my-3 p-3">
+            <div class="row align-items-center">
+                <div class="col-5 col-sm-3">
+                    <button type="button" class="btn btn-success">
+                        <i class="fas fa-plus fa-2x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endrole
     <div class="card">
       <div class="card-header bg-warning">
           <h5>My Pigeons</h5>

@@ -17,9 +17,9 @@
 			<li class="{{ request()->is('/') ? 'active' : '' }}">
 				<a href="/"><span class="fa fa-home mr-3"></span> Home</a>
 			</li>
-			<li class="{{ request()->is('player-events') ? 'active' : '' }}">
+			{{-- <li class="{{ request()->is('player-events') ? 'active' : '' }}">
 				<a href="/player-events"><i class="fas fa-flag mr-3"></i> Player Events</a>
-			</li>
+			</li> --}}
 			<li class="{{ request()->is('tournaments') ? 'active' : '' }}">
 				<a href="/tournaments"><i class="fas fa-poll-h mr-3"></i> Tournaments</a>
 			</li>
