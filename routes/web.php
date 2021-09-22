@@ -24,7 +24,11 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('player-events', PlayerEventsController::class);
-Route::resource('tournaments', TournamentsController::class);
-Route::resource('my-pigeons', MyPigeonsController::class);
-Route::resource('coordinates', CoordinatesController::class);
+
+Route::middleware(['auth', 'role:Admin'])->group(function () 
+{
+    Route::resource('player-events', PlayerEventsController::class);
+    Route::resource('tournaments', TournamentsController::class);
+    Route::resource('my-pigeons', MyPigeonsController::class);
+    Route::resource('coordinates', CoordinatesController::class);
+});
