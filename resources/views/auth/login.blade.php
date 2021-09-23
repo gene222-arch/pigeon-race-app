@@ -8,7 +8,7 @@
 <div class="container-fluid login-page-container">
     <div class="row justify-content-end">
         <div class="col-12 col-sm-12 col-md-12 col-lg-7 login-page-left-col">
-            <div class="card" style="width: 100%; height: 86vh">
+            <div class="card" style="width: 100%; height: 85vh">
                 <h1 class="text-center py-4">
                     <span class="badge badge-secondary">BEST</span>
                 </h1>
@@ -19,10 +19,10 @@
                     <span class="badge badge-secondary">YOU</span>
                 </h1>
                 <p class="text-center py-4">
-                    <img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="96" height="100"> 
+                    <img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="130" height="136"> 
                 </p>
                 <p class="text-center py-4 text-muted">
-                    Easy to use &middot; Secured Server &middot; Quick and Accurate
+                    Pigeons make you <strong>smile</strong>, let them <strong>live</strong> for a while
                 </p>
             </div>
         </div>

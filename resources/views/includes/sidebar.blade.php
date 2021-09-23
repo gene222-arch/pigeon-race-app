@@ -1,4 +1,4 @@
-<nav id="sidebar" class="">
+<nav id="sidebar" class="sidebar-container">
     <div class="custom-menu">
       <button type="button" id="sidebarCollapse" class="btn btn-primary">
         <i class="fa fa-bars"></i>
@@ -38,18 +38,6 @@
               	</a>
 			</li>
       </ul>
-
-      <div class="mb-5">
-			<h3 class="h6 mb-3">Subscribe for newsletter</h3>
-			<form action="#" class="subscribe-form">
-				<div class="form-group d-flex">
-					<div class="icon">
-						<span class="icon-paper-plane"></span>
-					</div>
-					<input type="text" class="form-control" placeholder="Enter Email Address">
-				</div>
-			</form>
-        </div>
 
       <div class="footer">
 		<p>Copyright &copy;
