@@ -29,6 +29,9 @@
 			<li class="{{ request()->is('coordinates') ? 'active' : '' }}">
 				<a href="/coordinates"><i class="fas fa-thumbtack mr-3"></i> View Coordinates</a>
 			</li>
+			<li class="{{ request()->is('generate-qrcode') ? 'active' : '' }}">
+				<a href="/generate-qrcode"><i class="fas fa-qrcode"></i> Generate QR Code</a>
+			</li>
 			<li>
 				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
 					<p><i class="fas fa-sign-out-alt mr-3"></i>Logout</p>
