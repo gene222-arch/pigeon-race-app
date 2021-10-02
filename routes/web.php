@@ -3,6 +3,7 @@
 use App\Http\Controllers\CoordinatesController;
 use App\Http\Controllers\MyPigeonsController;
 use App\Http\Controllers\PlayerEventsController;
+use App\Http\Controllers\QrCodeGeneratorController;
 use App\Http\Controllers\TournamentsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::middleware(['auth', 'role:Admin'])->group(function () 
 {
+    Route::resource('generate-qrcode', QrCodeGeneratorController::class);
     Route::resource('player-events', PlayerEventsController::class);
     Route::resource('tournaments', TournamentsController::class);
     Route::resource('my-pigeons', MyPigeonsController::class);
