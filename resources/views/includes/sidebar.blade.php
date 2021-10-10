@@ -23,9 +23,11 @@
 			<li class="{{ request()->is('tournaments') ? 'active' : '' }}">
 				<a href="/tournaments"><i class="fas fa-poll-h mr-3"></i> Tournaments</a>
 			</li>
-			<li class="{{ request()->is('my-pigeons') ? 'active' : '' }}">
-				<a href="/my-pigeons"><i class="fas fa-dove mr-3"></i> My Pigeons</a>
-			</li>
+			@hasrole('User')
+				<li class="{{ request()->is('my-pigeons') ? 'active' : '' }}">
+					<a href="/my-pigeons"><i class="fas fa-dove mr-3"></i> My Pigeons</a>
+				</li>
+			@endhasrole
 			<li class="{{ request()->is('coordinates') ? 'active' : '' }}">
 				<a href="/coordinates"><i class="fas fa-thumbtack mr-3"></i> View Coordinates</a>
 			</li>

@@ -2,13 +2,21 @@
 
 @section('content')
 <div class="container-fluid mt-5">
-    @hasrole('Admin')
+    @if (Session::has('messageOnDeleteSuccess'))
+    <div class="alert alert-danger" role="alert">
+        {{ Session::get('messageOnDeleteSuccess') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+    @hasrole('User')
         <div class="card my-3 p-3">
             <div class="row align-items-center">
                 <div class="col-5 col-sm-3">
-                    <button type="button" class="btn btn-success">
+                    <a type="button" class="btn btn-success" href="{{ route('my-pigeons.create') }}">
                         <i class="fas fa-plus fa-2x"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -31,77 +39,52 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
-                <td class="text-center">
-                    <button type="button" class="btn btn-info btn-block">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    @hasrole('Admin')
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    @endhasrole
-                </td>
-                <td></td>
-                <td>
-                    LRPA 1906
-                </td>
-                <td>-</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>
-                    <span class="badge badge-success">Active</span>
-                </td>
-                <td>2021-08-01 02:53:58</td>
-              </tr>
-
-              <tr>
-                <td class="text-center">
-                    <button type="button" class="btn btn-info btn-block">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    @hasrole('Admin')
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    @endhasrole
-                </td>
-                <td></td>
-                <td>
-                    PSU 51428
-                </td>
-                <td>-</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>
-                    <span class="badge badge-success">Active</span>
-                </td>
-                <td>2021-05-16 01:45:02</td>
-              </tr>
-
-              <tr>
-                <td class="text-center">
-                    <button type="button" class="btn btn-info btn-block">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    @hasrole('Admin')
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    @endhasrole
-                </td>
-                <td></td>
-                <td>
-                    MSPA 1269
-                </td>
-                <td>-</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>
-                    <span class="badge badge-success">Active</span>
-                </td>
-                <td>2021-05-01 23:21:37</td>
-              </tr>
+            @forelse ($myPigeons as $myPigeon)
+                <tr>
+                    <td class="text-center">
+                        <a type="button" class="btn btn-info btn-block" href="{{ route('my-pigeons.show', [ 'my_pigeon' => $myPigeon->id ]) }}">
+                            <i class="fas fa-eye text-white"></i>
+                        </a>
+                        @hasrole('User')
+                            <a type="button" class="btn btn-warning btn-block" href="{{ route('my-pigeons.edit', [ 'my_pigeon' => $myPigeon->id ]) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        @endhasrole
+                        @hasrole('User')
+                            <form method="POST" action="{{ route('my-pigeons.destroy', $myPigeon->id) }}">
+                                @csrf
+                                @method('DELETE')
+                            
+                                <div class="form-group my-2">
+                                    <button 
+                                        type="submit" 
+                                        class="btn btn-danger btn-block"
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        @endhasrole
+                    </td>
+                    <td>
+                        {{ $myPigeon->image_path }}
+                    </td>
+                    <td>
+                        {{ $myPigeon->ring_band }}
+                    </td>
+                    <td>
+                        {{ $myPigeon->color . ' ' . $myPigeon->gender }}
+                    </td>
+                    <td>{{ $myPigeon->remarks }}</td>
+                    <td>{{ $myPigeon->bloodline }}</td>
+                    <td>
+                        <span class="badge badge-success">{{ $myPigeon->status }}</span>
+                    </td>
+                    <td>{{ $myPigeon->created_at }}</td>
+                </tr>
+            @empty
+                <h4>Empty</h4>
+            @endforelse
           </tbody>
       </table>
   </div>
