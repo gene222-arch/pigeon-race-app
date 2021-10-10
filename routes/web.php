@@ -26,7 +26,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', 'role:Admin'])->group(function () 
+Route::middleware(['auth'])->group(function () 
 {
     Route::resource('generate-qrcode', QrCodeGeneratorController::class);
     Route::resource('player-events', PlayerEventsController::class);
