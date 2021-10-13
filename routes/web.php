@@ -29,7 +29,16 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::middleware(['auth'])->group(function () 
 {
-    Route::resource('generate-qrcode', QrCodeGeneratorController::class);
+
+    Route::prefix('generate-qrcode')->group(function () 
+    {
+        Route::get('/', [QrCodeGeneratorController::class, 'index'])->name('generate.qrcode.index');
+        Route::post('/', [QrCodeGeneratorController::class, 'store'])->name('generate.qrcode.store');
+        Route::delete('/', [QrCodeGeneratorController::class, 'clear'])->name('generate.qrcode.clear');
+        Route::put('mark-all-as-used', [QrCodeGeneratorController::class, 'markAllAsUsed'])
+            ->name('generate.qrcode.mark.all.as.used');
+    });
+
     Route::resource('player-events', PlayerEventsController::class);
     Route::resource('tournaments', TournamentsController::class);
     Route::resource('my-pigeons', MyPigeonsController::class);
