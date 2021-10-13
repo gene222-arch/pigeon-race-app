@@ -36,6 +36,6 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('coordinates', CoordinatesController::class);
 
     Route::group(['prefix' => 'exports'], function () {
-        Route::get('/qr-code', [ QrCodeExporter::class, 'pdf' ]);
+        Route::get('/qr-code', [ QrCodeExporter::class, 'pdf' ])->name('exports.qr.code.pdf');
     });
 });
