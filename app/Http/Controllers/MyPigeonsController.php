@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MyPigeon;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\MyPigeon\StoreRequest;
 use App\Http\Requests\MyPigeon\UpdateRequest;
-use App\Models\MyPigeon;
+use App\Http\Requests\MyPigeon\ImageUploadRequest;
 
 class MyPigeonsController extends Controller
 {
@@ -16,7 +18,7 @@ class MyPigeonsController extends Controller
     public function index()
     {
         return view('app.my-pigeon.index', [
-            'myPigeons' => MyPigeon::all()
+            'myPigeons' => MyPigeon::latest()->get()
         ]);
     }
 
@@ -38,7 +40,21 @@ class MyPigeonsController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        MyPigeon::create($request->validated());
+        $imagePath = '';
+
+        if ($request->hasFile('image')) 
+        {
+            $image = $request->file('image');
+
+            $fileName = time() . '_' . $image->getClientOriginalName();
+            $filePath = $image->storeAs('my-pigeons', $fileName, 'public');
+
+            $imagePath = '/storage/' . $filePath;
+        }
+
+        MyPigeon::create($request->validated() + [
+            'image_path' => $imagePath
+        ]);
 
         return redirect('/my-pigeons', 201);
     }
@@ -80,7 +96,7 @@ class MyPigeonsController extends Controller
     {
         $myPigeon->update($request->validated());
 
-        return redirect('/my-pigeons', 200);
+        return Redirect::route('my-pigeons.index');
     }
 
     /**

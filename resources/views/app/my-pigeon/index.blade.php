@@ -67,7 +67,7 @@
                         @endhasrole
                     </td>
                     <td>
-                        {{ $myPigeon->image_path }}
+                        <img src="{{ $myPigeon->image_path }}" width="100" height="100" alt="">
                     </td>
                     <td>
                         {{ $myPigeon->ring_band }}

@@ -13,7 +13,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,13 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => ['required', 'integer', 'exists:my_pigeons'],
+            'ring_band' => ['required', 'string', 'unique:my_pigeons,ring_band,' . $this->id],
+            'gender' => ['required', 'string', 'in:Male,Female'],
+            'color' => ['required', 'string'],
+            'remarks' => ['nullable', 'string'],
+            'bloodline' => ['nullable', 'string'],
+            'image' => ['nullable', 'image']
         ];
     }
 }
