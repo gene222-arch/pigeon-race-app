@@ -13,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'logo' => ['required', 'image'],
+            'name' => ['required', 'string', 'unique:clubs'],
+            'current_balance' => ['required', 'numeric'],
+            'entry_fee_reversal' => ['required', 'string', 'in:Yes,No'],
+            'club_coordinates' => ['required', 'string'],
+            'player_coordinates' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'country' => ['required', 'string'],
+            'status' => ['required', 'string', 'in:Active,Inactive'],
+            'user_ids.*' => ['required', 'distinct', 'integer', 'exists:users,id']
         ];
     }
 }

@@ -2,19 +2,28 @@
 
 @section('content')
 <div class="container-fluid mt-5">
-    @if (Session::has('messageOnDeleteSuccess'))
+    @if (Session::has('messageOnSuccess'))
         <div class="alert alert-success" role="alert">
-            {{ Session::get('messageOnDeleteSuccess') }}
+            {{ Session::get('messageOnSuccess') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
-    @hasrole('User')
+
+    @if (Session::has('errorMessage'))
+    <div class="alert alert-danger" role="alert">
+        {{ Session::get('errorMessage') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+    @hasrole('Admin')
         <div class="card my-3 p-3">
             <div class="row align-items-center">
                 <div class="col-5 col-sm-3">
-                    <a type="button" class="btn btn-success" href="{{ route('my-pigeons.create') }}">
+                    <a type="button" class="btn btn-success" href="{{ route('clubs.create') }}">
                         <i class="fas fa-plus fa-2x"></i>
                     </a>
                 </div>
@@ -23,35 +32,38 @@
     @endhasrole
     <div class="card">
       <div class="card-header bg-warning">
-          <h5>My Pigeons</h5>
+          <h5>Clubs</h5>
       </div>
       <table class="table table-hover">
           <thead class="thead-dark">
               <tr>
-                  <th scope="col">Action</th>
-                  <th scope="col">Photo</th>
-                  <th scope="col">Ring Band#</th>
-                  <th scope="col">Color or Gender</th>
-                  <th scope="col">Remarks</th>
-                  <th scope="col">Blood Line</th>
+                  <th scope="col">Actions</th>
+                  <th scope="col">Logo</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Current Balance</th>
+                  <th scope="col">Entry Fee Reversal</th>
+                  <th scope="col">Club Coordinates</th>
+                  <th scope="col">Player Coordinates</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Country</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Date Created</th>
+                  <th scope="col">Created At</th>
               </tr>
           </thead>
           <tbody>
-            @forelse ($myPigeons as $myPigeon)
+            @forelse ($clubs as $club)
                 <tr>
                     <td class="text-center">
-                        <a type="button" class="btn btn-info btn-block" href="{{ route('my-pigeons.show', [ 'my_pigeon' => $myPigeon->id ]) }}">
+                        <a type="button" class="btn btn-info btn-block" href="{{ route('clubs.show', [ 'club' => $club->id ]) }}">
                             <i class="fas fa-eye text-white"></i>
                         </a>
-                        @hasrole('User')
-                            <a type="button" class="btn btn-warning btn-block" href="{{ route('my-pigeons.edit', [ 'my_pigeon' => $myPigeon->id ]) }}">
+                        @hasrole('Admin')
+                            <a type="button" class="btn btn-warning btn-block" href="{{ route('clubs.edit', [ 'club' => $club->id ]) }}">
                                 <i class="fas fa-edit"></i>
                             </a>
                         @endhasrole
-                        @hasrole('User')
-                            <form method="POST" action="{{ route('my-pigeons.destroy', $myPigeon->id) }}">
+                        @hasrole('Admin')
+                            <form method="POST" action="{{ route('clubs.destroy', $club->id) }}">
                                 @csrf
                                 @method('DELETE')
                             
@@ -67,20 +79,23 @@
                         @endhasrole
                     </td>
                     <td>
-                        <img src="{{ $myPigeon->image_path }}" width="100" height="100" alt="">
+                        <img src="{{ $club->logo_path }}" width="100" height="100" alt="">
                     </td>
                     <td>
-                        {{ $myPigeon->ring_band }}
+                        {{ $club->name }}
                     </td>
                     <td>
-                        {{ $myPigeon->color . ' ' . $myPigeon->gender }}
+                        {{ $club->current_balance }}
                     </td>
-                    <td>{{ $myPigeon->remarks }}</td>
-                    <td>{{ $myPigeon->bloodline }}</td>
+                    <td>{{ $club->entry_fee_reversal }}</td>
+                    <td>{{ $club->club_coordinates }}</td>
+                    <td>{{ $club->player_coordinates }}</td>
                     <td>
-                        <span class="badge badge-success">{{ $myPigeon->status }}</span>
+                        <span class="badge {{ $club->status !== 'Active' ? 'badge-disabled' : 'badge-success' }}">{{ $club->status }}</span>
                     </td>
-                    <td>{{ $myPigeon->created_at }}</td>
+                    <td>{{ $club->created_at }}</td>
+                    <td>{{ $club->status }}</td>
+                    <td>{{ $club->created_at }}</td>
                 </tr>
             @empty
                 <h4>Empty</h4>

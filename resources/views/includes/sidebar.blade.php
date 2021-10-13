@@ -36,6 +36,9 @@
 					<a href="/generate-qrcode"><i class="fas fa-qrcode mr-3"></i> Generate QR Code</a>
 				</li>
 			@endif
+			<li class="{{ request()->is('clubs') ? 'active' : '' }}">
+				<a href="/clubs"><i class="fas fa-users mr-3"></i>Clubs</a>
+			</li>
 			<li>
 				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
 					<p><i class="fas fa-sign-out-alt mr-3"></i>Logout</p>

@@ -20,4 +20,9 @@ class Club extends Model
         'country',
         'status'
     ];
+
+    public function players()
+    {
+        return $this->belongsToMany(User::class, 'club_users');
+    }
 }
