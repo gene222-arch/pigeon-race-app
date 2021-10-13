@@ -94,7 +94,21 @@ class MyPigeonsController extends Controller
      */
     public function update(UpdateRequest $request, MyPigeon $myPigeon)
     {
-        $myPigeon->update($request->validated());
+        $imagePath = '';
+
+        if ($request->hasFile('image')) 
+        {
+            $image = $request->file('image');
+
+            $fileName = time() . '_' . $image->getClientOriginalName();
+            $filePath = $image->storeAs('my-pigeons', $fileName, 'public');
+
+            $imagePath = '/storage/' . $filePath;
+        }
+
+        $myPigeon->update($request->validated() + [
+            'image_path' => $imagePath
+        ]);
 
         return Redirect::route('my-pigeons.index');
     }

@@ -38,7 +38,6 @@
                                             class="form-control @error('image') is-invalid @enderror w-100" 
                                             id="chooseFile"
                                             oninput="img.src=window.URL.createObjectURL(this.files[0])"
-                                            value="{{ $myPigeon->image_path }}"
                                         >
                                         <label class="custom-file-label" for="chooseFile">Select Image</label>
                                         @error('image')
