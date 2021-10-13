@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(MyPigeon::class);
     }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
+    public function assignUserRole()
+    {
+        $this->assignRole('User');
+    }
 }

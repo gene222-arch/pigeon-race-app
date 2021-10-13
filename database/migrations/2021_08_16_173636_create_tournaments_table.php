@@ -15,6 +15,7 @@ class CreateTournamentsTable extends Migration
     {
         Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
             $table->string('name');
             $table->boolean('is_public')->default(true);
             $table->string('club_name');

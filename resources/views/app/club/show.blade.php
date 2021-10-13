@@ -68,7 +68,7 @@
                         <th scope="col">Rank</th>
                         <th scope="col">Avatar</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Pigeon Image</th>
+                        <th scope="col">Email Address</th>
                         <th scope="col">Ring Band No.</th>
                         <th scope="col">Points</th>
                         <th scope="col">Created At</th>
@@ -85,7 +85,7 @@
                               {{ $player->name }}
                           </td>
                           <td>
-                            <img src="{{ $player->logo_path }}" width="100" height="100" alt="">
+                            {{ $player->email }}
                           </td>
                           <td>{{ '' }}</td>
                           <td>{{ '' }}</td>

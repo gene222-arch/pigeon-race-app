@@ -57,39 +57,5 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-5">
-          <div class="card">
-            <div class="card-header bg-warning">
-                <h5><i class="fas fa-users fa-1x mr-3"></i>Club List</h5>
-            </div>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Current Balance </th>
-                        <th scope="col">Entry Fee Reversal </th>
-                        <th scope="col">Club Coordinates</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>PIGEON SPORTS UNLIMITED (PSU)</td>
-                        <td>0.00</td>
-                        <td class="text-danger">No</td>
-                        <td>14:35:22.74 N - 121:00:9.54 E</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>TANAUAN CITY RACING PIGEON CLUB</td>
-                        <td>0.00</td>
-                        <td class="text-danger">No</td>
-                        <td>14:35:22.74 N - 121:00:9.54 E</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 @endsection

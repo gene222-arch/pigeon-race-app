@@ -6,11 +6,15 @@
     </button>
   </div>
 	<div class="p-4">
-		<div class="row mb-5 justify-content-center align-items-center">
+		<div class="row mb-2 justify-content-center align-items-center">
 			<img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="60" height="65">
 			<div class="col">
 				<h6><strong>{{ Auth::user()->name }}</strong></h6>
 				<small>{{ Auth::user()->email }}</small>
+			</div>
+			<div class="col mt-3">
+				<h3 class="text-warning">{{ Auth::user()->detail->loft_name }}</h3>
+				<span class=""><strong>{{ Auth::user()->detail->phone }}</strong></span>
 			</div>
 		</div>
       <ul class="list-unstyled components mb-5">
