@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\QrCodeExporter;
+use App\Http\Controllers\ClubsController;
 use App\Http\Controllers\CoordinatesController;
 use App\Http\Controllers\MyPigeonsController;
 use App\Http\Controllers\PlayerEventsController;
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('tournaments', TournamentsController::class);
     Route::resource('my-pigeons', MyPigeonsController::class);
     Route::resource('coordinates', CoordinatesController::class);
+    Route::resource('clubs', ClubsController::class);
 
     Route::group(['prefix' => 'exports'], function () {
         Route::get('/qr-code', [ QrCodeExporter::class, 'pdf' ])->name('exports.qr.code.pdf');

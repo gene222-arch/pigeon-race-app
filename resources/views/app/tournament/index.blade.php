@@ -50,21 +50,22 @@
                                     >
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    
                                 @endhasrole
-                                <form method="POST" action="{{ route('tournaments.destroy', $tournament->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                
-                                    <div class="form-group my-2">
-                                        <button 
-                                            type="submit" 
-                                            class="btn btn-danger btn-block"
-                                        >
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                                @hasrole('Admin')
+                                    <form method="POST" action="{{ route('tournaments.destroy', $tournament->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                    
+                                        <div class="form-group my-2">
+                                            <button 
+                                                type="submit" 
+                                                class="btn btn-danger btn-block"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                @endhasrole
                         </td>
                         <td class='text-center'>
                             <i class="fas {{ !$tournament->is_public ? 'fa-lock' : 'fa-globe-asia' }}"></i>
