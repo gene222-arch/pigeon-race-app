@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Tournament\StoreUpdateRequest;
 use App\Models\Club;
 use App\Models\Tournament;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
 class TournamentsController extends Controller
@@ -29,7 +30,8 @@ class TournamentsController extends Controller
     public function create()
     {
         return view('app.tournament.create', [
-            'clubs' => Club::all(['id', 'name'])
+            'clubs' => Club::all(['id', 'name']),
+            'players' => User::with('detail')->get(['id', 'name'])->except(1)
         ]);
     }
 
@@ -75,8 +77,9 @@ class TournamentsController extends Controller
     public function edit(Tournament $tournament)
     {
         return view('app.tournament.edit', [
-            'tournament' => $tournament,
-            'clubs' => Club::all(['id', 'name'])
+            'tournament' => Tournament::with('details')->find($tournament->id),
+            'clubs' => Club::all(['id', 'name']),
+            'players' => User::with('detail')->get(['id', 'name'])->except(1)
         ]);
     }
 
@@ -89,6 +92,7 @@ class TournamentsController extends Controller
      */
     public function update(StoreUpdateRequest $request, Tournament $tournament)
     {
+        $playerIds = collect($request->player_ids)->map(fn ($id) => [ 'user_id' => $id ])->toArray();
         $clubName = Club::find($request->club_id)->name;
 
         $data = [
@@ -97,6 +101,13 @@ class TournamentsController extends Controller
         ] + $request->validated();
 
         $tournament->update($data);
+
+        if (! $tournament->details->count()) {
+            $tournament->details()->createMany($playerIds);
+        } else {
+            $tournament->details()->delete();
+            $tournament->details()->createMany($playerIds);
+        }
 
         return Redirect::route('tournaments.index');
     }

@@ -18,4 +18,9 @@ class Tournament extends Model
         'legs',
         'birds_count'
     ];
+
+    public function details()
+    {
+        return $this->hasMany(TournamentDetail::class);
+    }
 }

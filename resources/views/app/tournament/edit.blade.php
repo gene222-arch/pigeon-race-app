@@ -48,9 +48,9 @@
                                         name="type"
                                     >
                                         <option value="0">Select Type</option>
-                                        <option value="Type 1" {{ $tournament->type === 'Type 1' || old('type') === 'Type 1' ? 'selected' : '' }}>Type 1</option>
-                                        <option value="Type 2" {{ $tournament->type === 'Type 1' || old('type') === 'Type 2' ? 'selected' : '' }}>Type 2</option>
-                                        <option value="Type 3" {{ $tournament->type === 'Type 1' || old('type') === 'Type 3' ? 'selected' : '' }}>Type 3</option>
+                                        <option value="Type 1" {{ $tournament->type === 'Type 1' ? 'selected' : '' }}>Type 1</option>
+                                        <option value="Type 2" {{ $tournament->type === 'Type 2' ? 'selected' : '' }}>Type 2</option>
+                                        <option value="Type 3" {{ $tournament->type === 'Type 3' ? 'selected' : '' }}>Type 3</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -133,6 +133,31 @@
                                     aria-label="birds_count"
                                 >
                                 @error('birds_count')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon2">Players</span>
+                                </div>
+                                <select 
+                                    class="custom-select @error('player_ids') is-invalid @enderror"
+                                    name="player_ids[]"
+                                    multiple
+                                >
+                                    @foreach ($players as $player)
+                                        <option 
+                                            value="{{ $player->id }}" {{ in_array($player->id, $tournament->details->map->user_id->toArray()) ? 'selected' : '' }}
+                                        >
+                                            {{ $player->detail->loft_name }}
+                                    </option>   
+                                    @endforeach
+                                </select>
+                                @error('player_ids')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

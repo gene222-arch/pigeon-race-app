@@ -15,6 +15,13 @@ class CreateTournamentDetailsTable extends Migration
     {
         Schema::create('tournament_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tournament_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->unsignedDouble('points')->default(0);
+            $table->unsignedDouble('speed_per_miniute', 2)->default(0);
+            $table->unsignedDouble('leg_1_meter_per-minute', 2)->default(0);
+            $table->unsignedDouble('leg_2_meter_per-minute', 2)->default(0);
+            $table->unsignedDouble('leg_3_meter_per-minute', 2)->default(0);
             $table->timestamps();
         });
     }
