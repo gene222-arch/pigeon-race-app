@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Tournament\StoreUpdateRequest;
+use App\Models\Club;
 use App\Models\Tournament;
 use Illuminate\Support\Facades\Redirect;
 
@@ -27,7 +28,9 @@ class TournamentsController extends Controller
      */
     public function create()
     {
-        return view('app.tournament.create');
+        return view('app.tournament.create', [
+            'clubs' => Club::all(['id', 'name'])
+        ]);
     }
 
     /**
@@ -38,8 +41,11 @@ class TournamentsController extends Controller
      */
     public function store(StoreUpdateRequest $request)
     {
+        $clubName = Club::find($request->club_id)->name;
+
         $data = [
-            'is_public' => $request->is_public === 'on'
+            'is_public' => $request->is_public === 'on',
+            'club_name' => $clubName
         ] + $request->validated();
 
         Tournament::create($data);
@@ -69,7 +75,8 @@ class TournamentsController extends Controller
     public function edit(Tournament $tournament)
     {
         return view('app.tournament.edit', [
-            'tournament' => $tournament
+            'tournament' => $tournament,
+            'clubs' => Club::all(['id', 'name'])
         ]);
     }
 
@@ -82,8 +89,11 @@ class TournamentsController extends Controller
      */
     public function update(StoreUpdateRequest $request, Tournament $tournament)
     {
+        $clubName = Club::find($request->club_id)->name;
+
         $data = [
-            'is_public' => $request->is_public === 'on'
+            'is_public' => $request->is_public === 'on',
+            'club_name' => $clubName
         ] + $request->validated();
 
         $tournament->update($data);

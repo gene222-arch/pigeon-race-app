@@ -10,6 +10,7 @@ class Tournament extends Model
     use HasFactory;
 
     protected $fillable = [
+        'type',
         'name',
         'is_public',
         'club_name',

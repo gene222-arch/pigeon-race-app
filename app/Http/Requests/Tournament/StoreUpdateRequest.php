@@ -26,10 +26,18 @@ class StoreUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'is_public' => ['required', 'in:on,close'],
-            'club_name' => ['required', 'string'],
+            'club_id' => ['required', 'exists:clubs,id'],
+            'type' => ['required', 'string', 'in:Type 1, Type 2, Type 3'],
             'remarks' => ['nullable', 'string'],
             'legs' => ['required', 'integer'],
             'birds_count' => ['required', 'integer']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'club_id.exists' => 'Please select a valid club'
         ];
     }
 }

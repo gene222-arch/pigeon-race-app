@@ -43,19 +43,31 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <select 
+                                        class="form-control @error('type') is-invalid @enderror"
+                                        name="type"
+                                    >
+                                        <option value="0">Select Type</option>
+                                        <option value="Type 1" {{ $tournament->type === 'Type 1' || old('type') === 'Type 1' ? 'selected' : '' }}>Type 1</option>
+                                        <option value="Type 2" {{ $tournament->type === 'Type 1' || old('type') === 'Type 2' ? 'selected' : '' }}>Type 2</option>
+                                        <option value="Type 3" {{ $tournament->type === 'Type 1' || old('type') === 'Type 3' ? 'selected' : '' }}>Type 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                           <span class="input-group-text" id="basic-addon2">Club Name</span>
                                         </div>
-                                        <input 
-                                            id="club_name" 
-                                            type="text" 
-                                            name="club_name" 
-                                            class="form-control @error('club_name') is-invalid @enderror" 
-                                            value="{{ $tournament->club_name }}"
-                                            aria-describedby="basic-addon2"
+                                        <select 
+                                            class="form-control @error('club_id') is-invalid @enderror"
+                                            name="club_id"
                                         >
-                                        @error('club_name')
+                                            <option value="0">Select Club</option>
+                                            @foreach ($clubs as $club)
+                                                <option value="{{ $club->id }}" {{ $tournament->club_name === $club->name ? 'selected' : '' }}>{{ $club->name }}</option>   
+                                            @endforeach
+                                        </select>
+                                        @error('club_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
