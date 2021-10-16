@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tournament;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -29,12 +31,25 @@ class HomeController extends Controller
 
         $users = null;
 
-        if ($isAdmin) {
+        if ($isAdmin) 
+        {
             $users = User::all()->filter(fn ($user) => !$user->hasRole('Admin'));
+
+            DB::statement("SET sql_mode = '' ");
+
+            $tournamentDetails = Tournament::with('details')
+                ->withCount('details')
+                ->groupBy('type')
+                ->orderBy('type')
+                ->get()
+                ->map(fn ($tournament) => $tournament->details_count);
+
+            return view('app.admin-dashboard', [
+                'users' => $users,
+                'tournaments' => $tournamentDetails
+            ]);
         }
 
-        return !$isAdmin ? view('app.dashboard') : view('app.admin-dashboard', [
-            'users' => $users
-        ]);
+        return view('app.dashboard');
     }
 }

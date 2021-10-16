@@ -3,6 +3,14 @@
 @section('js')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
+    const tournamentPlayers = '<?php echo $tournaments; ?>'
+        .replace('[', '')
+        .replace(']', '')
+        .split(',')
+        .map(player => parseInt(player));;
+
+    console.log(tournamentPlayers);
+
     Highcharts.chart('container', {
         title: {
             text: 'Races'
@@ -30,7 +38,7 @@
         },
         series: [{
             name: 'Players',
-            data: [0, 200, 100]
+            data: tournamentPlayers,
         }],
         responsive: {
             rules: [{
