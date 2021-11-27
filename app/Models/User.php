@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         $this->assignRole('User');
     }
+
+    public function club()
+    {
+        return $this->hasOne(ClubUser::class, 'user_id');
+    }
 }

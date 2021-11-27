@@ -34,13 +34,26 @@
                         @forelse ($tournaments as $tournament)
                         <tr>
                             <td>
-                                <a 
-                                    type="button" 
-                                    class="btn btn-info btn-block" 
-                                    href="{{ route('tournaments.show', [ 'tournament' => $tournament->id ]) }}"
-                                >
-                                    <i class="fas fa-eye text-white"></i>
-                                </a>
+                                @hasrole('User')
+                                    <a 
+                                        type="button" 
+                                        class="btn btn-{{ \App\Models\Club::find(Auth::user()?->club?->club_id)?->name !== $tournament->club_name ? 'dark' : 'info' }} btn-block" 
+                                        href="{{ route('tournaments.show', [ 'tournament' => $tournament->id ]) }}"
+                                        aria-disabled="{{ \App\Models\Club::find(Auth::user()?->club?->club_id)?->name !== $tournament->club_name }}"
+                                    >
+                                        <i class="fas fa-eye text-{{ \App\Models\Club::find(Auth::user()?->club?->club_id)?->name === $tournament->club_name ? 'white' : 'secondary' }}"></i>
+                                    </a>
+                                @endhasrole
+
+                                @hasrole('Admin')
+                                    <a 
+                                        type="button" 
+                                        class="btn btn-info btn-block" 
+                                        href="{{ route('tournaments.show', [ 'tournament' => $tournament->id ]) }}"
+                                    >
+                                        <i class="fas fa-eye text-white"></i>
+                                    </a>
+                                @endhasrole
                                 
                                 @hasrole('Admin')
                                     <a 

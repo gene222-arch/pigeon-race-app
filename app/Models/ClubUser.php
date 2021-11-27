@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClubPlayer extends Model
+class ClubUser extends Model
 {
     use HasFactory;
 
