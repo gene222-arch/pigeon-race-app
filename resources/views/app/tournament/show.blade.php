@@ -61,36 +61,36 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Player</th>
-                    <th scope="col">Points</th>
-                    <th scope="col">Speed per minute</th>
-                    <th scope="col">Leg 1 meter per minute</th>
-                    <th scope="col">Leg 2 meter per minute</th>
-                    <th scope="col">Leg 3 meter per minute</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($tournament->details as $detail)
-                    <tr align="center">
-                        <td class="text-secondary">
-                            <strong>{{ $detail->user->name }}</strong>
-                        </td>
-                        <td>{{ $detail->points }}</td>
-                        <td>{{ $detail->speed_per_minute }}</td>
-                        <td>{{ $detail->leg_1_meter_per_minute }}</td>
-                        <td>{{ $detail->leg_2_meter_per_minute }}</td>
-                        <td>{{ $detail->leg_3_meter_per_minute }}</td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
+            <div class="card mt-5">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Player</th>
+                            <th scope="col">Points</th>
+                            <th scope="col">Speed per minute</th>
+                            <th scope="col">Leg 1 meter per minute</th>
+                            <th scope="col">Leg 2 meter per minute</th>
+                            <th scope="col">Leg 3 meter per minute</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($tournament->details as $detail)
+                            <tr align="center">
+                                <td class="text-secondary">
+                                    <strong>{{ $detail->user->name }}</strong>
+                                </td>
+                                <td>{{ $detail->points }}</td>
+                                <td>{{ $detail->speed_per_minute }}</td>
+                                <td>{{ $detail->leg_1_meter_per_minute }}</td>
+                                <td>{{ $detail->leg_2_meter_per_minute }}</td>
+                                <td>{{ $detail->leg_3_meter_per_minute }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

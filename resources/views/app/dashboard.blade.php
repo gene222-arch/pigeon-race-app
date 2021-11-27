@@ -70,6 +70,7 @@
     <script>
         const btnScanner = document.querySelector('.btn-scanner');
         const videoElem = document.querySelector('.qr-scanner');
+
         const qrScanner = new window.QrScanner(
             videoElem, 
             result => console.log('decoded qr code:', result)

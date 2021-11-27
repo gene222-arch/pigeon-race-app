@@ -90,11 +90,11 @@
                     <td>{{ $club->entry_fee_reversal }}</td>
                     <td>{{ $club->club_coordinates }}</td>
                     <td>{{ $club->player_coordinates }}</td>
+                    <td>{{ $club->address }}</td>
+                    <td>{{ $club->created_at }}</td>
                     <td>
                         <span class="badge {{ $club->status !== 'Active' ? 'badge-disabled' : 'badge-success' }}">{{ $club->status }}</span>
                     </td>
-                    <td>{{ $club->created_at }}</td>
-                    <td>{{ $club->status }}</td>
                     <td>{{ $club->created_at }}</td>
                 </tr>
             @empty
