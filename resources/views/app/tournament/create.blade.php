@@ -103,16 +103,17 @@
                         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon1">Legs</span>
+                                  <span class="input-group-text" id="basic-addon1">Laps</span>
                                 </div>
                                 <input 
                                     id="legs" 
                                     type="text" 
                                     name="legs" 
                                     class="form-control @error('legs') is-invalid @enderror" 
-                                    value="{{ old('legs') }}"
+                                    value="3"
                                     aria-describedby="basic-addon1"
                                     aria-label="legs"
+                                    disabled
                                 >
                                 @error('legs')
                                     <div class="invalid-feedback">
