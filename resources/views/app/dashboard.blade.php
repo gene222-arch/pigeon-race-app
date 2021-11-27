@@ -51,11 +51,33 @@
                         <button type="button" class="btn btn-info btn-block">View Result</button>
                     </li>
                     <li class="list-group-item">
-                        <button type="button" class="btn btn-info btn-block"><i class="fas fa-qrcode mr-3 text-dark"></i>Scan</button>
+                        <video class="qr-scanner"></video>
+                        <button 
+                            type="button" 
+                            class="btn btn-info btn-block btn-scanner"
+                        >
+                            <i class="fas fa-qrcode mr-3 text-dark"></i>Scan
+                        </button>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script>
+        const btnScanner = document.querySelector('.btn-scanner');
+        const videoElem = document.querySelector('.qr-scanner');
+        const qrScanner = new window.QrScanner(
+            videoElem, 
+            result => console.log('decoded qr code:', result)
+        );
+
+        btnScanner.addEventListener('click', () => {
+            console.log('SCANNING')
+            qrScanner.start();
+        });
+    </script>
 @endsection
