@@ -94,7 +94,7 @@ class MyPigeonsController extends Controller
      */
     public function update(UpdateRequest $request, MyPigeon $myPigeon)
     {
-        $imagePath = '';
+        $imagePath = $myPigeon->image_path;
 
         if ($request->hasFile('image')) 
         {

@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'ring_band' => ['required', 'string', 'unique:my_pigeons'],
             'image_path' => ['nullable', 'image'],
-            'gender' => ['required', 'string', 'in:Male,Female'],
+            'gender' => ['required', 'string', 'in:Cock,Hen'],
             'color' => ['required', 'string'],
             'remarks' => ['nullable', 'string'],
             'bloodline' => ['nullable', 'string'],

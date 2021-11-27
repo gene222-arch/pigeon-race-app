@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'id' => ['required', 'integer', 'exists:my_pigeons'],
             'ring_band' => ['required', 'string', 'unique:my_pigeons,ring_band,' . $this->id],
-            'gender' => ['required', 'string', 'in:Male,Female'],
+            'gender' => ['required', 'string', 'in:Cock,Hen'],
             'color' => ['required', 'string'],
             'remarks' => ['nullable', 'string'],
             'bloodline' => ['nullable', 'string'],

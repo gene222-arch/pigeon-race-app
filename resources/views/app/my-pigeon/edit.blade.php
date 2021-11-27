@@ -99,22 +99,22 @@
                             <div class="custom-control custom-radio custom-control-inline w-100">
                                 <input 
                                     type="radio" 
-                                    id="male" 
+                                    id="cock" 
                                     name="gender" 
-                                    class="custom-control-input" {{ old('gender') === 'Male' || $myPigeon->gender === 'Male' ? 'checked' : '' }}
-                                    value="Male"
+                                    class="custom-control-input" {{ old('gender') === 'Cock' || $myPigeon->gender === 'Cock' ? 'checked' : '' }}
+                                    value="Cock"
                                 >
-                                <label class="custom-control-label" for="male">Male</label>
+                                <label class="custom-control-label" for="cock">Cock</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline w-100">
                                 <input 
                                     type="radio" 
-                                    id="female" 
+                                    id="Hen" 
                                     name="gender" 
-                                    class="custom-control-input" {{ old('gender') === 'Female' || $myPigeon->gender === 'Female' ? 'checked' : '' }}
-                                    value="Female"
+                                    class="custom-control-input" {{ old('gender') === 'Hen' || $myPigeon->gender === 'Hen' ? 'checked' : '' }}
+                                    value="Hen"
                                 >
-                                <label class="custom-control-label" for="female">Female</label>
+                                <label class="custom-control-label" for="Hen">Hen</label>
                             </div>
                         </div>
                         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
