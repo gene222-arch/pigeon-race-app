@@ -17,7 +17,7 @@
             text: 'Source: positronx.io'
         },
         xAxis: {
-            categories: [ 'South Race', 'Summer Race', 'North Race' ]
+            categories: [ 'North Race', 'South Race', 'Summer Race' ]
         },
         yAxis: {
             title: {

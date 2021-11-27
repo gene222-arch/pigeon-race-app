@@ -27,7 +27,7 @@ class StoreUpdateRequest extends FormRequest
             'name' => ['required', 'string'],
             'is_public' => ['required', 'in:on,close'],
             'club_id' => ['required', 'exists:clubs,id'],
-            'type' => ['required', 'string', 'in:Type 1,Type 2,Type 3'],
+            'type' => ['required', 'string', 'in:North Race,South Race,Summer Race'],
             'remarks' => ['nullable', 'string'],
             'legs' => ['required', 'integer'],
             'player_ids.*' => ['required', 'integer', 'exists:users,id'],
