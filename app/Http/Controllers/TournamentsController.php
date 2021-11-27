@@ -50,7 +50,17 @@ class TournamentsController extends Controller
             'club_name' => $clubName
         ] + $request->validated();
 
-        Tournament::create($data);
+        $tournament = Tournament::query()->create($data);
+
+        $tournamentDetails = [];
+
+        foreach ($request->player_ids as $playerId) {
+            $tournamentDetails[] = [
+                'user_id' => $playerId
+            ];
+        }
+
+        $tournament->details()->createMany($tournamentDetails);
 
         return Redirect::route('tournaments.index');
     }

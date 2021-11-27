@@ -9,8 +9,6 @@
         .split(',')
         .map(player => parseInt(player));;
 
-    console.log(tournamentPlayers);
-
     Highcharts.chart('container', {
         title: {
             text: 'Races'
