@@ -47,10 +47,9 @@
                                         class="form-control @error('type') is-invalid @enderror"
                                         name="type"
                                     >
-                                        <option value="0">Select Type</option>
-                                        <option value="North Race" {{ old('type') === 'North Race' ? 'selected' : '' }}>North Race</option>
-                                        <option value="South Race" {{ old('type') === 'South Race' ? 'selected' : '' }}>South Race</option>
-                                        <option value="Summer Race" {{ old('type') === 'Summer Race' ? 'selected' : '' }}>Summer Race</option>
+                                        <option value="North Race" {{ $tournament->type === 'North Race' ? 'selected' : '' }}>North Race</option>
+                                        <option value="South Race" {{ $tournament->type === 'South Race' ? 'selected' : '' }}>South Race</option>
+                                        <option value="Summer Race" {{ $tournament->type === 'Summer Race' ? 'selected' : '' }}>Summer Race</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6">
