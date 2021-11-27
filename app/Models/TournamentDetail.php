@@ -13,14 +13,19 @@ class TournamentDetail extends Model
         'tournament_id',
         'user_id',
         'points',
-        'speed_per_miniute',
-        'leg_1_meter_per',
-        'leg_2_meter_per',
-        'leg_3_meter_per'
+        'speed_per_minute',
+        'leg_1_meter_per_minute',
+        'leg_2_meter_per_minute',
+        'leg_3_meter_per_minute'
     ];
 
     public function tournament()
     {
         return $this->belongsTo(Tournament::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

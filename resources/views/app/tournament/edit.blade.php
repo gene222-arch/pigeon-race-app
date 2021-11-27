@@ -48,9 +48,9 @@
                                         name="type"
                                     >
                                         <option value="0">Select Type</option>
-                                        <option value="Type 1" {{ $tournament->type === 'Type 1' ? 'selected' : '' }}>Type 1</option>
-                                        <option value="Type 2" {{ $tournament->type === 'Type 2' ? 'selected' : '' }}>Type 2</option>
-                                        <option value="Type 3" {{ $tournament->type === 'Type 3' ? 'selected' : '' }}>Type 3</option>
+                                        <option value="North Race" {{ old('type') === 'North Race' ? 'selected' : '' }}>North Race</option>
+                                        <option value="South Race" {{ old('type') === 'South Race' ? 'selected' : '' }}>South Race</option>
+                                        <option value="Summer Race" {{ old('type') === 'Summer Race' ? 'selected' : '' }}>Summer Race</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6">

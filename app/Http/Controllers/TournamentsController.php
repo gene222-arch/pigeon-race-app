@@ -73,6 +73,8 @@ class TournamentsController extends Controller
      */
     public function show(Tournament $tournament)
     {
+        $tournament = $tournament->with('details.user')->find($tournament)->first();
+
         return view('app.tournament.show', [
             'tournament' => $tournament
         ]);
