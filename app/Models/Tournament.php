@@ -17,6 +17,7 @@ class Tournament extends Model
         'remarks',
         'legs',
         'birds_count',
+        'time_started_at',
         'is_active'
     ];
 

@@ -142,6 +142,17 @@ class TournamentsController extends Controller
         return view('app.dashboard');
     }
 
+    public function startTimeToActiveTournaments()
+    {
+        Tournament::query()
+            ->where('is_active', '=', true)
+            ->update([
+                'time_started_at' => Carbon::now()->toTimeString()
+            ]);
+
+        return Redirect::route('tournaments.index');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

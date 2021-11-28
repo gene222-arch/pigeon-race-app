@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function ()
 
     Route::prefix('tournaments')->group(function () {
         Route::post('clock-in', [TournamentsController::class, 'clockIn'])->name('tournaments.clock.in');
+        Route::post('start-time', [TournamentsController::class, 'startTimeToActiveTournaments'])->name('tournaments.start.time');
     });
 
     Route::resource('my-pigeons', MyPigeonsController::class);
