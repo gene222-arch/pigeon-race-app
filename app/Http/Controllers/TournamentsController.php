@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tournament\ClockInRequest;
 use App\Http\Requests\Tournament\StoreUpdateRequest;
 use App\Models\Club;
 use App\Models\Tournament;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class TournamentsController extends Controller
@@ -122,6 +124,17 @@ class TournamentsController extends Controller
         }
 
         return Redirect::route('tournaments.index');
+    }
+
+    public function clockIn(ClockInRequest $request)
+    {
+        $request->user()
+            ->activeTournament()
+            ->update([
+                'updated_at' => Carbon::now()
+            ]);
+
+        return view('app.dashboard');
     }
 
     /**

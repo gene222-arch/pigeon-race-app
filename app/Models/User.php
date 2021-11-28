@@ -61,4 +61,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(ClubUser::class, 'user_id');
     }
+
+    public function tournaments()
+    {
+        return $this->hasMany(TournamentDetail::class);
+    }
+
+    public function activeTournament()
+    {
+        return $this->tournaments()->firstWhere('is_active', true);
+    }
 }

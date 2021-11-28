@@ -41,7 +41,13 @@ Route::middleware(['auth'])->group(function ()
     });
 
     Route::resource('player-events', PlayerEventsController::class);
+
     Route::resource('tournaments', TournamentsController::class);
+
+    Route::prefix('tournaments')->group(function () {
+        Route::post('clock-in', [TournamentsController::class, 'clockIn'])->name('tournaments.clock.in');
+    });
+
     Route::resource('my-pigeons', MyPigeonsController::class);
     Route::resource('coordinates', CoordinatesController::class);
     Route::resource('clubs', ClubsController::class);
