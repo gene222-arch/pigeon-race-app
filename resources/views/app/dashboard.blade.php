@@ -41,7 +41,7 @@
                                 <label for="exampleInputEmail1">Sticker Code</label>
                                 <input 
                                     name="qr_code"
-                                    class="form-control bg-secondary @error('qr_code') is-invalid @enderror" id="exampleInputEmail1" 
+                                    class="form-control bg-secondary @error('qr_code') is-invalid @enderror manual-input-qr-code" id="exampleInputEmail1" 
                                     aria-describedby="emailHelp" 
                                     placeholder="Code"
                                     value="{{ old('qr_code') }}"
@@ -76,7 +76,7 @@
 
                         <button 
                             type="button" 
-                            class="btn btn-info btn-block btn-scanner"
+                            class="btn btn-info btn-block btn-scan-thru-webcam"
                         >
                             <i class="fas fa-qrcode mr-3 text-dark"></i>Scan
                         </button>

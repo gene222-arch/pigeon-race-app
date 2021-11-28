@@ -3,11 +3,13 @@ import * as DEVICE from './utils/device.js'
 window.addEventListener('load', () =>
 {
     const qrForm = document.querySelector('.form-qr-upload');
-    const btnScanner = document.querySelector('.btn-scanner');
+    const btnScanThruWebCam = document.querySelector('.btn-scan-thru-webcam');
     const videoElem = document.querySelector('.qr-scanner');
     const featured = document.querySelector('.featured');
 
-    !DEVICE.isDesktop() ? btnScanner.style.display = 'none' : qrForm.style.display = 'none';
+    !DEVICE.isDesktop() // is other than desktop device
+        ? btnScanThruWebCam.style.display = 'none' 
+        : qrForm.style.display = 'none';
 
     if (! DEVICE.isDesktop()) 
     {
@@ -34,7 +36,13 @@ window.addEventListener('load', () =>
     {
         if (result) 
         {
-            console.log('decoded qr code:', result);
+            const inputQrCode = document.querySelector('.manual-input-qr-code');
+
+            inputQrCode.setAttribute('value', result);
+
+            featured.style.display = 'block';
+            videoElem.style.width = '0%';
+
             qrScanner.stop();
         }
     });
@@ -56,5 +64,5 @@ window.addEventListener('load', () =>
         }
     }
 
-btnScanner.addEventListener('click', handleScanning);
-})
+    btnScanThruWebCam.addEventListener('click', handleScanning);
+});
