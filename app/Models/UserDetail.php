@@ -13,7 +13,8 @@ class UserDetail extends Model
         'user_id',
         'loft_name',
         'phone',
-        'address'
+        'address',
+        'distance_in_km'
     ];
 
     public $timestamps = false;

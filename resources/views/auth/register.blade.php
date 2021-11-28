@@ -108,6 +108,22 @@
                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group row">
                                     <div class="col-5 col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                        <label for="distance_in_km">{{ __('Distance (km)') }}</label>
+                                    </div>
+                                    <div class="col-7 col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                        <input id="distance_in_km" type="text" class="form-control @error('distance_in_km') is-invalid @enderror" name="distance_in_km" value="{{ old('distance_in_km') }}" required autocomplete="email">
+    
+                                        @error('distance_in_km')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group row">
+                                    <div class="col-5 col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                         <label for="password">{{ __('Password') }}</label>
                                     </div>
                                     <div class="col-7 col-xs-7 col-sm-7 col-md-7 col-lg-7">

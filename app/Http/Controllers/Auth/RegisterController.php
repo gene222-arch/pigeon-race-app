@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'loft_name' => ['required', 'string'],
             'phone' => ['required', 'string', 'unique:user_details'],
             'address' => ['required', 'string'],
+            'distance_in_km' => ['required', 'numeric', 'min:30'],
         ]);
     }
 
@@ -78,7 +79,8 @@ class RegisterController extends Controller
         $user->detail()->create([
             'loft_name' => $data['loft_name'],
             'phone' => $data['phone'],
-            'address' => $data['address']
+            'address' => $data['address'],
+            'distance_in_km' => $data['distance_in_km']
         ]);
 
         $user->assignRole('User');

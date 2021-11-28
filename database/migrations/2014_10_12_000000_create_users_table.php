@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('loft_name');
             $table->string('phone')->unique();
             $table->string('address');
+            $table->unsignedDouble('distance_in_km')->default(0);
         });
     }
 
