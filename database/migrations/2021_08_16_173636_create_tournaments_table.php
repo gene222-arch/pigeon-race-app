@@ -22,6 +22,7 @@ class CreateTournamentsTable extends Migration
             $table->string('remarks')->nullable();
             $table->unsignedSmallInteger('legs')->default(2);
             $table->unsignedInteger('birds_count')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

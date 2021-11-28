@@ -16,7 +16,8 @@ class Tournament extends Model
         'club_name',
         'remarks',
         'legs',
-        'birds_count'
+        'birds_count',
+        'is_active'
     ];
 
     public function details()
