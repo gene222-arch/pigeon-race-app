@@ -19,9 +19,10 @@ class CreateTournamentDetailsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->unsignedDouble('points')->default(0);
             $table->unsignedDouble('speed_per_minute', 2)->default(0);
-            $table->unsignedDouble('leg_1_meter_per-minute', 2)->default(0);
-            $table->unsignedDouble('leg_2_meter_per-minute', 2)->default(0);
-            $table->unsignedDouble('leg_3_meter_per-minute', 2)->default(0);
+            $table->unsignedDouble('leg_1_meter_per_minute', 2)->default(0);
+            $table->unsignedDouble('leg_2_meter_per_minute', 2)->default(0);
+            $table->unsignedDouble('leg_3_meter_per_minute', 2)->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

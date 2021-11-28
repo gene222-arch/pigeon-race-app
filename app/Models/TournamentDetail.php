@@ -16,7 +16,8 @@ class TournamentDetail extends Model
         'speed_per_minute',
         'leg_1_meter_per_minute',
         'leg_2_meter_per_minute',
-        'leg_3_meter_per_minute'
+        'leg_3_meter_per_minute',
+        'is_active'
     ];
 
     public function tournament()
