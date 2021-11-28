@@ -11,6 +11,14 @@ class QrCodeGenerator extends Model
 
     protected $fillable = [
         'value',
-        'is_used'
+        'is_used',
+        'is_printed'
     ];
+
+    public function markAsUsed()
+    {
+        return $this->update([
+            'is_used' => 1
+        ]);
+    } 
 }

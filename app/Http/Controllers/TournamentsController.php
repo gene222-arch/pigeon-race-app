@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Tournament\ClockInRequest;
 use App\Http\Requests\Tournament\StoreUpdateRequest;
 use App\Models\Club;
+use App\Models\QrCodeGenerator;
 use App\Models\Tournament;
 use App\Models\User;
 use Carbon\Carbon;
@@ -128,6 +129,10 @@ class TournamentsController extends Controller
 
     public function clockIn(ClockInRequest $request)
     {
+        QrCodeGenerator::query()
+            ->firstWhere('value', '=', $request->qr_code)
+            ->markAsUsed();
+
         $request->user()
             ->activeTournament()
             ->update([
