@@ -67,18 +67,5 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript">
-        const btnScanner = document.querySelector('.btn-scanner');
-        const videoElem = document.querySelector('.qr-scanner');
-
-        const qrScanner = new window.QrScanner(
-            videoElem, 
-            result => console.log('decoded qr code:', result)
-        );
-
-        btnScanner.addEventListener('click', () => {
-            console.log('SCANNING')
-            qrScanner.start();
-        });
-    </script>
+    <script src="{{ asset('js/qrScanner.js') }}"></script>
 @endsection
