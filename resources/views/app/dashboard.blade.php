@@ -25,7 +25,8 @@
             </div>
         </div>
     </div>
-    <div class="container mb-5">
+    <video class="qr-scanner" style="width: 0%"></video>
+    <div class="container mb-5 featured">
         <div class="row justify-content-center">
            <div class="col-12 col-sm-12 col-md-7 col-lg-7">
             <div class="card">
@@ -51,7 +52,19 @@
                         <button type="button" class="btn btn-info btn-block">View Result</button>
                     </li>
                     <li class="list-group-item">
-                        <video class="qr-scanner"></video>
+                        <form class="form-qr-upload">
+                            <input 
+                                type="file" 
+                                name="image"
+                                id="chooseFile"
+                                class="input-qr-code"
+                                style="display: none"
+                            >
+                            <label for="chooseFile" class="btn btn-info btn-block upload-qr-code">
+                                <i class="fas fa-qrcode mr-3 text-dark"></i>Scan
+                            </label>
+                        </form>
+
                         <button 
                             type="button" 
                             class="btn btn-info btn-block btn-scanner"
@@ -67,5 +80,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/qrScanner.js') }}"></script>
+    <script src="{{ asset('js/qrScanner.js') }}" type="module"></script>
 @endsection

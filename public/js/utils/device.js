@@ -1,0 +1,1 @@
+export const isDesktop = () => !/Mobi|Tablet|iPad|iPhone|Android/.test(navigator.userAgent);
