@@ -28,4 +28,11 @@ class ClockInRequest extends FormRequest
             'qr_code' => ['required', 'string', 'exists:qr_code_generators,value', new IsQrCodeNotUsed()]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'qr_code.exists' => 'qr code is invalid'
+        ];
+    }
 }

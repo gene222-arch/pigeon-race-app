@@ -27,8 +27,8 @@ class IsQrCodeNotUsed implements Rule
     public function passes($attribute, $value)
     {
         $isUsed = QrCodeGenerator::query()
-            ->find($value, 'value')
-            ?->is_used;
+            ->firstWhere('value', '=', $value)
+            ->is_used;
 
         return !$isUsed;
     }
@@ -40,6 +40,6 @@ class IsQrCodeNotUsed implements Rule
      */
     public function message()
     {
-        return 'invalid qr code';
+        return 'qr code is invalid';
     }
 }

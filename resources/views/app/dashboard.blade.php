@@ -34,20 +34,29 @@
                     Featured
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Sticker Code</label>
-                            <input 
-                                type="email" 
-                                class="form-control bg-secondary" id="exampleInputEmail1" 
-                                aria-describedby="emailHelp" 
-                                placeholder="Code"
-                            >
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <button type="button" class="btn btn-outline-primary btn-block">Quick Clock In</button>
-                    </li>
+                    <form action="{{ route('tournaments.clock.in') }}" method="POST">
+                        @csrf 
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Sticker Code</label>
+                                <input 
+                                    name="qr_code"
+                                    class="form-control bg-secondary @error('qr_code') is-invalid @enderror" id="exampleInputEmail1" 
+                                    aria-describedby="emailHelp" 
+                                    placeholder="Code"
+                                    value="{{ old('qr_code') }}"
+                                >
+                                @error('qr_code')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <button type="submit" class="btn btn-outline-primary btn-block">Quick Clock In</button>
+                        </li>
+                    </form>
                     <li class="list-group-item">
                         <button type="button" class="btn btn-info btn-block">View Result</button>
                     </li>
