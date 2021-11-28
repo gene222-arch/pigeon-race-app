@@ -54,7 +54,7 @@
                             </div>
                         </li>
                         <li class="list-group-item">
-                            <button type="submit" class="btn btn-outline-primary btn-block">Quick Clock In</button>
+                            <button type="submit" class="btn btn-outline-primary btn-block btn-quick-clock-in">Quick Clock In</button>
                         </li>
                     </form>
                     <li class="list-group-item">

@@ -37,11 +37,14 @@ window.addEventListener('load', () =>
         if (result) 
         {
             const inputQrCode = document.querySelector('.manual-input-qr-code');
+            const btnClockIn = document.querySelector('.btn-quick-clock-in');
 
             inputQrCode.setAttribute('value', result);
 
             featured.style.display = 'block';
             videoElem.style.width = '0%';
+
+            btnClockIn.form.submit();
 
             qrScanner.stop();
         }
