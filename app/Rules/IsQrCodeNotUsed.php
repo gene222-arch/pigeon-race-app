@@ -26,11 +26,12 @@ class IsQrCodeNotUsed implements Rule
      */
     public function passes($attribute, $value)
     {
-        $isUsed = QrCodeGenerator::query()
-            ->firstWhere('value', '=', $value)
-            ->is_used;
+        $qrCode = QrCodeGenerator::query()
+            ->firstWhere('value', '=', $value);
 
-        return !$isUsed;
+        if (is_null($qrCode)) return false;
+
+        return !$qrCode->is_used;
     }
 
     /**
