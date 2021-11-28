@@ -17,6 +17,7 @@ class CreateQrCodeGeneratorsTable extends Migration
             $table->id();
             $table->string('value');
             $table->boolean('is_used')->default(false);
+            $table->boolean('is_printed')->default(false);
             $table->timestamps();
         });
     }

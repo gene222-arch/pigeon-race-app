@@ -11,7 +11,9 @@ class QrCodeExporter extends Controller
 {
     public function pdf()
     {
-        $qrCodes = QrCodeGenerator::all();
+        $qrCodes = QrCodeGenerator::query()
+            ->where('is_printed', false)
+            ->get();
 
         $toBase64Collections = collect([]);
 

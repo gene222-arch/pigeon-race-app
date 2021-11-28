@@ -10,7 +10,7 @@
                 </div>   
                 <div class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="row align-items-center">
-                        <div class="col">
+                        {{-- <div class="col">
                             <form action="{{ route('generate.qrcode.mark.all.as.used') }}" method="POST">
                                 @csrf
                                 @method('PUT')
@@ -21,28 +21,32 @@
                                     Mark all as used
                                 </button>
                             </form>
-                        </div>
-                        <div class="col">
-                            <form action="{{ route('generate.qrcode.store') }}" method="POST">
-                                @csrf
-                                <button 
-                                    class="btn btn-success w-100 py-3"
+                        </div> --}}
+                        @if (! $qrCodes->count())
+                            <div class="col mb-2">
+                                <form action="{{ route('generate.qrcode.store') }}" method="POST">
+                                    @csrf
+                                    <button 
+                                        class="btn btn-success w-100 py-3"
+                                        target="_blank"
+                                    >
+                                        Generate
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+                        @if ($qrCodes->count())
+                            <div class="col mb-2">
+                                <a 
+                                    class="btn btn-info w-100 py-3"
+                                    href="{{ route('exports.qr.code.pdf') }}"
                                     target="_blank"
                                 >
-                                    Generate
-                                </button>
-                            </form>
-                        </div>
-                        <div class="col">
-                            <a 
-                                class="btn btn-info w-100 py-3"
-                                href="{{ route('exports.qr.code.pdf') }}"
-                                target="_blank"
-                            >
-                                Print
-                            </a>
-                        </div>
-                        <div class="col">
+                                    Print
+                                </a>
+                            </div>
+                        @endif
+                        {{-- <div class="col mb-2">
                             <form action="{{ route('generate.qrcode.clear') }}" method="POST">
                                 @csrf
                                 @method("DELETE")
@@ -53,7 +57,7 @@
                                     Clear
                                 </button>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div> 
             </div> 
