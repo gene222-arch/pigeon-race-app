@@ -176,6 +176,19 @@ class TournamentsController extends Controller
         ]);
     }
 
+    public function restartTimeToActiveTournaments()
+    {
+        Tournament::query()
+            ->where('is_active', '=', true)
+            ->update([
+                'time_started_at' => NULL
+            ]);
+
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Time has restarted successfully'
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
