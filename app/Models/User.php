@@ -79,6 +79,16 @@ class User extends Authenticatable
                 [ 'is_active', '=', true ],
                 [ 'club_name', '=', $this->club()->name]
             ])
+            ->first();
+    }
+
+    public function activeTournamentDetails()
+    {
+        return Tournament::query()
+            ->where([
+                [ 'is_active', '=', true ],
+                [ 'club_name', '=', $this->club()->name]
+            ])
             ->first()
             ->details()
             ->firstWhere('user_id', '=', $this->id);

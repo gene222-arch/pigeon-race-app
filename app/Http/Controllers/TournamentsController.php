@@ -98,7 +98,7 @@ class TournamentsController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        $tournament = $tournament->with('details.user')->find($tournament)->first();
+        $tournament = Tournament::with('details')->find($tournament->id);
 
         return view('app.tournament.show', [
             'tournament' => $tournament
@@ -151,12 +151,20 @@ class TournamentsController extends Controller
 
     public function clockIn(ClockInRequest $request)
     {
+        $timeStarted = $request->user()->activeTournament()->time_started_at;
+        $clockedInTime = Carbon::now()->toTimeString();
+
+        $to = Carbon::createFromFormat('H:s:i', $clockedInTime);
+        $from = Carbon::createFromFormat('H:s:i', $timeStarted);
+
+        $diffInMinutes = $to->diffInMinutes($from);
+
         QrCodeGenerator::query()
             ->firstWhere('value', '=', $request->qr_code)
             ->markAsUsed();
 
         $request->user()
-            ->activeTournament()
+            ->activeTournamentDetails()
             ->update([
                 'updated_at' => Carbon::now()
             ]);
