@@ -49,11 +49,12 @@
                 <tr>
                     <th scope="col">Action</th>
                     <th scope="col">Privacy</th>
-                    <th scope="col">Club Name</th>
                     <th scope="col">Tournament Name</th>
+                    <th scope="col">Club Name</th>
                     <th scope="col">Remarks</th>
                     <th scope="col">Legs</th>
                     <th scope="col">Total Birds</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Date Created</th>
                 </tr>
                 </thead>
@@ -64,11 +65,11 @@
                                 @hasrole('User')
                                     <a 
                                         type="button" 
-                                        class="btn btn-{{ \App\Models\Club::find(Auth::user()?->club?->club_id)?->name !== $tournament->club_name ? 'dark' : 'info' }} btn-block" 
+                                        class="btn btn-{{ \App\Models\Club::find(Auth::user()?->tournament?->tournament_id)?->name !== $tournament->tournament_name ? 'dark' : 'info' }} btn-block" 
                                         href="{{ route('tournaments.show', [ 'tournament' => $tournament->id ]) }}"
-                                        aria-disabled="{{ \App\Models\Club::find(Auth::user()?->club?->club_id)?->name !== $tournament->club_name }}"
+                                        aria-disabled="{{ \App\Models\Club::find(Auth::user()?->tournament?->tournament_id)?->name !== $tournament->tournament_name }}"
                                     >
-                                        <i class="fas fa-eye text-{{ \App\Models\Club::find(Auth::user()?->club?->club_id)?->name === $tournament->club_name ? 'white' : 'secondary' }}"></i>
+                                        <i class="fas fa-eye text-{{ \App\Models\Club::find(Auth::user()?->tournament?->tournament_id)?->name === $tournament->tournament_name ? 'white' : 'secondary' }}"></i>
                                     </a>
                                 @endhasrole
 
@@ -110,11 +111,13 @@
                         <td class='text-center'>
                             <i class="fas {{ !$tournament->is_public ? 'fa-lock' : 'fa-globe-asia' }}"></i>
                         </td>
-                        <td>
-                            {{ $tournament->club_name }}
+                        <td class='text-center'>
+                            <strong class="text-{{ $tournament->is_active ? 'dark' : 'secondary' }}">
+                                {{ $tournament->name }}
+                            </strong>
                         </td>
                         <td>
-                            {{ $tournament->name }}
+                            {{ $tournament->club_name }}
                         </td>
                         <td>
                             {{ $tournament->remarks }}
@@ -124,6 +127,13 @@
                         </td>
                         <td class="text-center">
                             {{ $tournament->birds_count }}
+                        </td>
+                        <td class="text-center">
+                            <span 
+                                class="badge {{ $tournament->is_active ? 'badge-success' : 'badge-secondary' }} p-1"
+                            >
+                                {{ $tournament->is_active ? 'ACTIVE' : 'INACTIVE' }}
+                            </span>
                         </td>
                         <td>
                             {{ $tournament->created_at }}

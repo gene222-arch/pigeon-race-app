@@ -36,8 +36,12 @@ class TournamentsController extends Controller
             $timeStartedAt = $activeStartedTournament->time_started_at;
         }
 
+        $tournaments = Tournament::query()
+            ->orderBy('is_active', 'DESC')
+            ->simplePaginate(10);
+
         return view('app.tournament.index', [
-            'tournaments' => Tournament::simplePaginate(10),
+            'tournaments' => $tournaments,
             'hasActiveTournaments' => $hasActiveTournaments,
             'timeStartedAt' => $timeStartedAt
         ]);
