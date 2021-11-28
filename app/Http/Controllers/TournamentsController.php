@@ -20,8 +20,26 @@ class TournamentsController extends Controller
      */
     public function index()
     {
+        $timeStartedAt = null;
+
+        $hasActiveTournaments = Tournament::query()
+            ->where('is_active', '=', true)
+            ->exists();
+
+        $activeStartedTournament = Tournament::query()
+            ->firstWhere([
+                [ 'is_active', '=', true ],
+                [ 'time_started_at', '!=', null ]
+            ]);
+
+        if ($activeStartedTournament) {
+            $timeStartedAt = $activeStartedTournament->time_started_at;
+        }
+
         return view('app.tournament.index', [
-            'tournaments' => Tournament::simplePaginate(10)
+            'tournaments' => Tournament::simplePaginate(10),
+            'hasActiveTournaments' => $hasActiveTournaments,
+            'timeStartedAt' => $timeStartedAt
         ]);
     }
 
@@ -145,12 +163,17 @@ class TournamentsController extends Controller
     public function startTimeToActiveTournaments()
     {
         Tournament::query()
-            ->where('is_active', '=', true)
+            ->where([
+                [ 'is_active', '=', true ],
+                [ 'time_started_at', '=', null ]
+            ])
             ->update([
                 'time_started_at' => Carbon::now()->toTimeString()
             ]);
 
-        return Redirect::route('tournaments.index');
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Race has started successfully'
+        ]);
     }
 
     /**

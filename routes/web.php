@@ -42,12 +42,12 @@ Route::middleware(['auth'])->group(function ()
 
     Route::resource('player-events', PlayerEventsController::class);
 
-    Route::resource('tournaments', TournamentsController::class);
-
     Route::prefix('tournaments')->group(function () {
         Route::post('clock-in', [TournamentsController::class, 'clockIn'])->name('tournaments.clock.in');
-        Route::post('start-time', [TournamentsController::class, 'startTimeToActiveTournaments'])->name('tournaments.start.time');
+        Route::get('start-time', [TournamentsController::class, 'startTimeToActiveTournaments'])->name('tournaments.start.time');
     });
+
+    Route::resource('tournaments', TournamentsController::class);
 
     Route::resource('my-pigeons', MyPigeonsController::class);
     Route::resource('coordinates', CoordinatesController::class);

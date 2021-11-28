@@ -2,14 +2,36 @@
 
 @section('content')
     <div class="container-fluid mt-5">
+        @if (Session::has('messageOnSuccess'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('messageOnSuccess') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         @hasrole('Admin')
             <div class="card my-3 p-3">
-                <div class="row align-items-center">
-                    <div class="col-5 col-sm-3">
+                <div class="row align-items-center justify-space-between">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
                         <a type="button" class="btn btn-success" href="{{ route('tournaments.create') }}">
                             <i class="fas fa-plus fa-2x"></i>
                         </a>
                     </div>
+                    @if ($hasActiveTournaments)
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                            <a type="button" class="btn btn-warning" href="{{ route('tournaments.start.time') }}">
+                                <i class="fas fa-clock text-info mr-1"></i> Start Tournament
+                            </a>
+                        </div>
+                    @endif
+                    @if ($timeStartedAt)
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                            <a type="button" class="btn btn-warning" href="{{ route('tournaments.create') }}">
+                                Time started: <span class="text-secondary">{{ $timeStartedAt }}</span>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         @endhasrole
