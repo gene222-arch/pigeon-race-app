@@ -67,7 +67,7 @@
 @endsection
 
 @section('js')
-    <script>
+    <script type="text/javascript">
         const btnScanner = document.querySelector('.btn-scanner');
         const videoElem = document.querySelector('.qr-scanner');
 
