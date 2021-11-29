@@ -151,23 +151,65 @@ class TournamentsController extends Controller
 
     public function clockIn(ClockInRequest $request)
     {
+        $user = $request->user();
+
+        $activeTournament = $user->activeTournamentDetails();
+
+        $legOneMeterPerMin = $activeTournament->leg_1_meter_per_minute;
+        $legTwoMeterPerMin = $activeTournament->leg_2_meter_per_minute;
+
         $timeStarted = $request->user()->activeTournament()->time_started_at;
         $clockedInTime = Carbon::now()->toTimeString();
 
         $to = Carbon::createFromFormat('H:s:i', $clockedInTime);
         $from = Carbon::createFromFormat('H:s:i', $timeStarted);
+        $distance = $user->detail->distance_in_km;
 
         $diffInMinutes = $to->diffInMinutes($from);
+        $currentLapSpeedPerMin = ($distance / $diffInMinutes);
+
+        $speedPerMinute = 0;
+
+        $data = [
+            'updated_at' => Carbon::now()
+        ];
+
+        if (! $legOneMeterPerMin) 
+        {
+            $speedPerMinute = ($currentLapSpeedPerMin / 3);
+
+            $data = $data + [
+                'leg_1_meter_per_minute' => $currentLapSpeedPerMin
+            ];
+        }
+
+        if ($legOneMeterPerMin && !$legTwoMeterPerMin) 
+        {
+            $speedPerMinute = ($legOneMeterPerMin + $currentLapSpeedPerMin) / 3;
+
+            $data = $data + [
+                'leg_2_meter_per_minute' => $currentLapSpeedPerMin
+            ];
+        }
+
+        if ($legOneMeterPerMin && $legTwoMeterPerMin) 
+        {
+            $speedPerMinute = ($legOneMeterPerMin + $legTwoMeterPerMin + $currentLapSpeedPerMin) / 3;
+
+            $data = $data + [
+                'leg_3_meter_per_minute' => $currentLapSpeedPerMin
+            ];
+        }
+
+        $data = $data + [
+            'speed_per_minute' => $speedPerMinute
+        ];
+
+        $activeTournament->update($data);
 
         QrCodeGenerator::query()
             ->firstWhere('value', '=', $request->qr_code)
             ->markAsUsed();
-
-        $request->user()
-            ->activeTournamentDetails()
-            ->update([
-                'updated_at' => Carbon::now()
-            ]);
 
         return view('app.dashboard');
     }
