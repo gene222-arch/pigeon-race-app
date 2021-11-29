@@ -29,7 +29,6 @@ class StoreUpdateRequest extends FormRequest
             'club_id' => ['required', 'exists:clubs,id'],
             'type' => ['required', 'string', 'in:North Race,South Race,Summer Race'],
             'remarks' => ['nullable', 'string'],
-            'legs' => ['required', 'integer'],
             'player_ids.*' => ['required', 'integer', 'exists:users,id'],
             'birds_count' => ['required', 'integer']
         ];

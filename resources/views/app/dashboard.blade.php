@@ -1,6 +1,22 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if (Session::has('messageOnSuccess'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('messageOnSuccess') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if (Session::has('messageOnFailed'))
+    <div class="alert alert-danger" role="alert">
+        {{ Session::get('messageOnFailed') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#" target="_self">Dashboard</a></li>

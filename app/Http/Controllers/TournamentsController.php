@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Club;
+use App\Models\User;
+use App\Models\Tournament;
+use App\Models\QrCodeGenerator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Tournament\ClockInRequest;
 use App\Http\Requests\Tournament\StoreUpdateRequest;
-use App\Models\Club;
-use App\Models\QrCodeGenerator;
-use App\Models\Tournament;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Redirect;
 
 class TournamentsController extends Controller
 {
@@ -72,7 +73,8 @@ class TournamentsController extends Controller
 
         $data = [
             'is_public' => $request->is_public === 'on',
-            'club_name' => $clubName
+            'club_name' => $clubName,
+            'legs' => 3
         ] + $request->validated();
 
         $tournament = Tournament::query()->create($data);
@@ -153,6 +155,21 @@ class TournamentsController extends Controller
     {
         $user = $request->user();
 
+        $clubNames = Tournament::query()
+            ->where('is_active', '=', 1)
+            ->get()
+            ->map 
+            ->club_name;
+
+
+        $clubIsInAnActiveTournament = $clubNames->filter(fn ($club) => $club === $user->club()->name)->count();
+
+        if (! $clubIsInAnActiveTournament) {
+            return redirect()->back()->with([
+                'messageOnFailed' => 'Your club had not joined any tournament.'
+            ]);
+        }
+
         $activeTournament = $user->activeTournamentDetails();
 
         $legOneMeterPerMin = $activeTournament->leg_1_meter_per_minute;
@@ -171,7 +188,8 @@ class TournamentsController extends Controller
         $speedPerMinute = 0;
 
         $data = [
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
+            'points' => DB::raw('points + 1')
         ];
 
         if (! $legOneMeterPerMin) 
@@ -211,7 +229,9 @@ class TournamentsController extends Controller
             ->firstWhere('value', '=', $request->qr_code)
             ->markAsUsed();
 
-        return view('app.dashboard');
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Clocked in successfully'
+        ]);
     }
 
     public function startTimeToActiveTournaments()
