@@ -84,21 +84,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($users)
-                        @forelse ($users as $user)
+                    @if ($userTournamentReports)
+                        @forelse ($userTournamentReports as $userTournamentReport)
                             <tr>
                                 <td>
-                                    {{ $user->id }}
+                                    {{ $userTournamentReport->id }}
                                 </td>
                                 <td>
-                                    <strong>{{ $user->name }}</strong>
+                                    <strong>{{ $userTournamentReport->player }}</strong>
                                 </td>
-                                <td>PIGEON SPORTS UNLIMITED (PSU)</td>
+                                <td>{{ $userTournamentReport->club }}</td>
                                 <td align='center'>
-                                    {{ 5 + $user->id }}
-                                </td>
-                                <td align='center'>
-                                    {{ $user->id + 1 }}
+                                    {{ $userTournamentReport->tournaments_joined_count }}
                                 </td>
                             </tr>
                         @empty 

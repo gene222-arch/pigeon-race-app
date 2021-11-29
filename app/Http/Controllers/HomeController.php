@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\TournamentResultReports;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(TournamentResultReports $reports)
     {
         $isAdmin = Auth::user()->hasRole('Admin');
 
@@ -33,8 +34,6 @@ class HomeController extends Controller
 
         if ($isAdmin) 
         {
-            $users = User::all()->filter(fn ($user) => !$user->hasRole('Admin'));
-
             DB::statement("SET sql_mode = '' ");
 
             $tournamentDetails = Tournament::with('details')
@@ -45,7 +44,7 @@ class HomeController extends Controller
                 ->map(fn ($tournament) => $tournament->details_count);
 
             return view('app.admin-dashboard', [
-                'users' => $users,
+                'userTournamentReports' => $reports->playerTournamentReports(),
                 'tournaments' => $tournamentDetails
             ]);
         }
