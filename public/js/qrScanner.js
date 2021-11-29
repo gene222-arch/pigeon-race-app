@@ -16,6 +16,8 @@ window.addEventListener('load', () =>
         qrForm.addEventListener('change', () => 
         {
             const inputQr = document.querySelector('.input-qr-code');
+            const inputQrCode_ = document.querySelector('.manual-input-qr-code');
+            const btnClockIn_ = document.querySelector('.btn-quick-clock-in');
             const file = inputQr.files[0];
 
             var reader = new FileReader();
@@ -26,8 +28,11 @@ window.addEventListener('load', () =>
             {
                 window.QrScanner
                     .scanImage(e.target.result)
-                    .then(result => console.log(result))
-                    .catch(error => console.log(error || 'No QR code found.'));
+                    .then(result => {
+                        inputQrCode_.setAttribute('value', result);
+                        btnClockIn_.form.submit();
+                    })
+                    .catch(error => window.alert(error || 'No QR code found.'));
             };
         })
     }

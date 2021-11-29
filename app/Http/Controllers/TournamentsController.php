@@ -101,7 +101,7 @@ class TournamentsController extends Controller
     public function show(Tournament $tournament)
     {
         $tournament = Tournament::with([
-            'details' => fn ($q) => $q->orderBy('points', 'DESC')
+            'details' => fn ($q) => $q->orderBy('points', 'DESC')->orderBy('speed_per_minute', 'DESC')
         ])
         ->find($tournament->id);
 

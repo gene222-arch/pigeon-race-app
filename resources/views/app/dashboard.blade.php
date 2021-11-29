@@ -34,9 +34,6 @@
                     <p>
                         *Pindutin lamang ang "Quick Clock in" upang makapag tala ng oras sa ating karera.
                     </p>
-                    <p>
-                        *Para sa SMS Clock-in laging mag text sa tamang access number kung smart or globe wagding kakalimutan na mag text sa backup number provided ng inyong club.
-                    </p>
                 </div>
             </div>
         </div>
