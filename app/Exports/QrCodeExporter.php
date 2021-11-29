@@ -33,6 +33,12 @@ class QrCodeExporter extends Controller
         $pdf = PDF::loadView('export.pdf.QrCodeExport', [
             'qrCodes' => $toBase64Collections
         ]);
+
+        QrCodeGenerator::query()
+            ->where('is_printed', false)
+            ->update([
+                'is_printed' => true
+            ]);
         
         return $pdf->stream('qrcode.pdf');
     }

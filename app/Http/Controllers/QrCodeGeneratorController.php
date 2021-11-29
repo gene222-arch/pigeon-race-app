@@ -17,8 +17,15 @@ class QrCodeGeneratorController extends Controller
      */
     public function index()
     {
+        $data = QrCodeGenerator::query()
+            ->where([
+                [ 'is_used', '=', false ],
+                [ 'is_printed', '=', false ]
+            ])
+            ->get();
+
         return view('app.qr-code.index', [
-            'qrCodes' => QrCodeGenerator::where('is_used', false)->get()
+            'qrCodes' => $data
         ]);
     }
 

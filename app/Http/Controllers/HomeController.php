@@ -30,8 +30,6 @@ class HomeController extends Controller
     {
         $isAdmin = Auth::user()->hasRole('Admin');
 
-        $users = null;
-
         if ($isAdmin) 
         {
             DB::statement("SET sql_mode = '' ");
