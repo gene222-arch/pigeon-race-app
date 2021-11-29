@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function club()
     {
-        return Club::query()->find($this->clubUsers->club_id);
+        return Club::query()->find($this->clubUsers?->club_id);
     }
 
     public function clubUsers()
@@ -72,25 +72,25 @@ class User extends Authenticatable
         return $this->hasMany(TournamentDetail::class);
     }
 
-    public function activeTournament()
+    public function activeTournament(): Tournament|null
     {
         return Tournament::query()
             ->where([
                 [ 'is_active', '=', true ],
-                [ 'club_name', '=', $this->club()->name]
+                [ 'club_name', '=', $this->club()?->name]
             ])
             ->first();
     }
 
-    public function activeTournamentDetails()
+    public function activeTournamentDetails(): TournamentDetail|null
     {
         return Tournament::query()
             ->where([
                 [ 'is_active', '=', true ],
-                [ 'club_name', '=', $this->club()->name]
+                [ 'club_name', '=', $this->club()?->name]
             ])
             ->first()
-            ->details()
+            ?->details()
             ->firstWhere('user_id', '=', $this->id);
     }
 }
