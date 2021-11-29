@@ -100,7 +100,10 @@ class TournamentsController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        $tournament = Tournament::with('details')->find($tournament->id);
+        $tournament = Tournament::with([
+            'details' => fn ($q) => $q->orderBy('points', 'DESC')
+        ])
+        ->find($tournament->id);
 
         return view('app.tournament.show', [
             'tournament' => $tournament
@@ -178,9 +181,9 @@ class TournamentsController extends Controller
         $timeStarted = $request->user()->activeTournament()->time_started_at;
         $clockedInTime = Carbon::now()->toTimeString();
 
-        $to = Carbon::createFromFormat('H:s:i', $clockedInTime);
-        $from = Carbon::createFromFormat('H:s:i', $timeStarted);
-        $distance = $user->detail->distance_in_km;
+        $to = Carbon::parse($clockedInTime);
+        $from = Carbon::parse($timeStarted);
+        $distance = ($user->detail->distance_in_km * 1000);
 
         $diffInMinutes = $to->diffInMinutes($from);
         $currentLapSpeedPerMin = ($distance / $diffInMinutes);
@@ -271,6 +274,7 @@ class TournamentsController extends Controller
      */
     public function destroy(Tournament $tournament)
     {
+        $tournament->details()->delete();
         $tournament->delete();
 
         return redirect()->back()->with([
