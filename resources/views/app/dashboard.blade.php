@@ -58,7 +58,9 @@
                         </li>
                     </form>
                     <li class="list-group-item">
-                        <button type="button" class="btn btn-info btn-block">View Result</button>
+                        <a href="{{ route('tournaments.index') }}" class="btn btn-info btn-block">
+                            View Result
+                        </a>
                     </li>
                     <li class="list-group-item">
                         <form class="form-qr-upload">
