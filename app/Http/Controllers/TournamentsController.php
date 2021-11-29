@@ -175,6 +175,18 @@ class TournamentsController extends Controller
 
         $activeTournament = $user->activeTournamentDetails();
 
+        if (! $activeTournament) {
+            return redirect()->back()->with([
+                'messageOnFailed' => 'Sorry your`re not included in the tournament.'
+            ]);
+        }
+
+        if ($activeTournament->leg_3_meter_per_minute) {
+            return redirect()->back()->with([
+                'messageOnFailed' => 'Sorry you`ve finished the tournament.'
+            ]);
+        }
+
         $legOneMeterPerMin = $activeTournament->leg_1_meter_per_minute;
         $legTwoMeterPerMin = $activeTournament->leg_2_meter_per_minute;
 
