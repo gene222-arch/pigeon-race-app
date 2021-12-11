@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function ()
         Route::post('clock-in', [TournamentsController::class, 'clockIn'])->name('tournaments.clock.in');
         Route::get('start-time', [TournamentsController::class, 'startTimeToActiveTournaments'])->name('tournaments.start.time');
         Route::get('restart-time', [TournamentsController::class, 'restartTimeToActiveTournaments'])->name('tournaments.restart.time');
+        Route::get('finish', [TournamentsController::class, 'finish'])->name('tournaments.finish');
     });
 
     Route::resource('tournaments', TournamentsController::class);

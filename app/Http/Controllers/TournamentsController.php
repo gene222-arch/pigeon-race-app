@@ -278,6 +278,19 @@ class TournamentsController extends Controller
         ]);
     }
 
+    public function finish()
+    {
+        Tournament::query()
+            ->where('is_active', '=', true)
+            ->update([
+                'is_active' => false
+            ]);
+
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Tournament has ended successfully'
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

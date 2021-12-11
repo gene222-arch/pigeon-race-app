@@ -37,6 +37,13 @@
                             </a>
                         </div>
                     @endif
+                    @if ($hasActiveTournaments)
+                        <div class="col text-right">
+                            <a type="button" class="btn btn-danger" href="{{ route('tournaments.finish') }}">
+                                <i class="fas fa-hourglass-end mr-1"></i> End Tournament
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         @endhasrole
