@@ -1,4 +1,4 @@
-<nav id="sidebar" class="">
+<nav id="sidebar" class="sidebar-container">
     <div class="custom-menu">
       <button type="button" id="sidebarCollapse" class="btn btn-primary">
         <i class="fa fa-bars"></i>
@@ -6,22 +6,20 @@
     </button>
   </div>
 	<div class="p-4">
-		<h1>
-			<a href="index.html" class="logo">{{ config('app.name') }}</a>
-		</h1>
-		<div class="row">
+		<div class="row mb-5 justify-content-center align-items-center">
+			<img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="60" height="65">
 			<div class="col">
-				<h6>ID: <strong>#{{ Auth::user()->id }}</strong></h6>
-				<h6>Primary: <strong>#{{ Auth::user()->id }}</strong></h6>
+				<h6><strong>{{ Auth::user()->name }}</strong></h6>
+				<small>{{ Auth::user()->email }}</small>
 			</div>
 		</div>
       <ul class="list-unstyled components mb-5">
 			<li class="{{ request()->is('/') ? 'active' : '' }}">
-				<a href="#"><span class="fa fa-home mr-3"></span> Dashboard</a>
+				<a href="/"><span class="fa fa-home mr-3"></span> Home</a>
 			</li>
-			<li class="{{ request()->is('player-events') ? 'active' : '' }}">
+			{{-- <li class="{{ request()->is('player-events') ? 'active' : '' }}">
 				<a href="/player-events"><i class="fas fa-flag mr-3"></i> Player Events</a>
-			</li>
+			</li> --}}
 			<li class="{{ request()->is('tournaments') ? 'active' : '' }}">
 				<a href="/tournaments"><i class="fas fa-poll-h mr-3"></i> Tournaments</a>
 			</li>
@@ -32,21 +30,14 @@
 				<a href="/coordinates"><i class="fas fa-thumbtack mr-3"></i> View Coordinates</a>
 			</li>
 			<li>
-				<a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
+				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
+					<p><i class="fas fa-sign-out-alt mr-3"></i>Logout</p>
+					<form action="{{ route('logout') }}" method="POST" id="logout__form">
+						@csrf
+					</form>
+              	</a>
 			</li>
       </ul>
-
-      <div class="mb-5">
-			<h3 class="h6 mb-3">Subscribe for newsletter</h3>
-			<form action="#" class="subscribe-form">
-				<div class="form-group d-flex">
-					<div class="icon">
-						<span class="icon-paper-plane"></span>
-					</div>
-					<input type="text" class="form-control" placeholder="Enter Email Address">
-				</div>
-			</form>
-        </div>
 
       <div class="footer">
 		<p>Copyright &copy;
