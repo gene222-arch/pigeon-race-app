@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -34,29 +37,34 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
-    /**
      * Show the application registration form.
      *
      * @return \Illuminate\View\View
      */
     public function showRegistrationForm()
     {
-        if (! auth()->check() || !auth()->user()->is_admin) {
+        if (!auth()->check() || !auth()->user()->hasRole('Admin')) {
             abort(403);
         } 
 
         return view('auth.register');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        if ($this->registered($request, $user)) {
+            return redirect()->route('home');
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
+    }
+    
     /**
      * Get a validator for an incoming registration request.
      *
