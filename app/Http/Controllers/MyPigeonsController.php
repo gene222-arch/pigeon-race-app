@@ -6,7 +6,6 @@ use App\Models\MyPigeon;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\MyPigeon\StoreRequest;
 use App\Http\Requests\MyPigeon\UpdateRequest;
-use App\Http\Requests\MyPigeon\ImageUploadRequest;
 
 class MyPigeonsController extends Controller
 {
