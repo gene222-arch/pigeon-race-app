@@ -149,9 +149,9 @@
                             </div>
                         </div>
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary register-btn">
-                                    {{ __('Register') }}
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary register-btn w-100 p-3">
+                                    {{ __('Create Player') }}
                                 </button>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 register-page-left-col mb-5">
-            <h1 class="text-center mt-5">Create Your User</h1>
+            <h1 class="text-center mt-5">Create Your Player</h1>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center mt-5">
             @include('includes.footer')
