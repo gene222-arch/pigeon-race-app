@@ -6,9 +6,9 @@
         <div class="card my-3 p-3">
             <div class="row align-items-center">
                 <div class="col-5 col-sm-3">
-                    <button type="button" class="btn btn-success">
+                    <a type="button" class="btn btn-success" href="{{ route('coordinates.create') }}">
                         <i class="fas fa-plus fa-2x"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -27,69 +27,44 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
-                <td class="text-center">
-                    <button type="button" class="btn btn-info btn-block">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    @hasrole('Admin')
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    @endhasrole
-                </td>
-                  <td>
-                      STA. FE
-                  </td>
-                  <td>
-                    STA. FE, N.V / 16:09:44 N - 120:56:19 E / 218.268733 KM
-                  </td>
-                  <td class="text-center">
-                    43km
-                  </td>
-              </tr>
-              <tr>
-                <td class="text-center">
-                    <button type="button" class="btn btn-info btn-block">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    @hasrole('Admin')
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    @endhasrole
-                </td>
-                <td>
-                    STA. FE
-                </td>
-                <td>
-                    CARRANGLAN NUEVA ECIJA / 15:57:05.8 N - 120:58:56.6 E / 194.424641 KM
-                </td>
-                <td class="text-center">
-                  23km
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <button type="button" class="btn btn-info btn-block">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    @hasrole('Admin')
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    @endhasrole
-                </td>
-                <td>
-                    CARRANGLAN
-                </td>
-                <td>
-                    CARRANGLAN NUEVA ECIJA / 15:57:05.8 N - 120:58:56.6 E / 194.424641 KM
-                </td>
-                <td class="text-center">
-                  98km
-                </td>
-            </tr>
+              @forelse ($coordinates as $coordinate)
+                <tr>
+                    <td class="text-center">
+                        <a type="button" class="btn btn-info btn-block" href="{{ route('coordinates.show', [ 'coordinate' => $coordinate->id ]) }}">
+                            <i class="fas fa-eye text-white"></i>
+                        </a>
+                        @hasrole('Admin')
+                            <a type="button" class="btn btn-warning btn-block" href="{{ route('coordinates.edit', [ 'coordinate' => $coordinate->id ]) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        @endhasrole
+                        <form method="POST" action="{{ route('coordinates.destroy', $coordinate->id) }}">
+                            @csrf
+                            @method('DELETE')
+                        
+                            <div class="form-group my-2">
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-danger btn-block"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        {{ $coordinate->name }}
+                    </td>
+                    <td>
+                        {{ $coordinate->coordinate }}
+                    </td>
+                    <td>
+                        {{ $coordinate->distance_in_km }}
+                    </td>
+                </tr>
+              @empty
+                  <h4>Empty</h4>
+              @endforelse
           </tbody>
       </table>
   </div>

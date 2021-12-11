@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMyPigensTable extends Migration
+class CreateQrCodeGeneratorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateMyPigensTable extends Migration
      */
     public function up()
     {
-        Schema::create('my_pigens', function (Blueprint $table) {
+        Schema::create('qr_code_generators', function (Blueprint $table) {
             $table->id();
+            $table->string('value');
+            $table->boolean('is_used')->default(false);
+            $table->boolean('is_printed')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateMyPigensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('my_pigens');
+        Schema::dropIfExists('qr_code_generators');
     }
 }

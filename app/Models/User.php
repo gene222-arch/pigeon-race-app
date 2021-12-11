@@ -41,4 +41,56 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pigeons()
+    {
+        return $this->hasMany(MyPigeon::class);
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
+    public function assignUserRole()
+    {
+        $this->assignRole('User');
+    }
+
+    public function club()
+    {
+        return Club::query()->find($this->clubUsers?->club_id);
+    }
+
+    public function clubUsers()
+    {
+        return $this->hasOne(ClubUser::class, 'user_id');
+    }
+
+    public function tournaments()
+    {
+        return $this->hasMany(TournamentDetail::class);
+    }
+
+    public function activeTournament(): Tournament|null
+    {
+        return Tournament::query()
+            ->where([
+                [ 'is_active', '=', true ],
+                [ 'club_name', '=', $this->club()?->name]
+            ])
+            ->first();
+    }
+
+    public function activeTournamentDetails(): TournamentDetail|null
+    {
+        return Tournament::query()
+            ->where([
+                [ 'is_active', '=', true ],
+                [ 'club_name', '=', $this->club()?->name]
+            ])
+            ->first()
+            ?->details()
+            ->firstWhere('user_id', '=', $this->id);
+    }
 }

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -32,15 +37,34 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
+     * Show the application registration form.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
-    public function __construct()
+    public function showRegistrationForm()
     {
-        $this->middleware('guest');
+        if (!auth()->check() || !auth()->user()->hasRole('Admin')) {
+            abort(403);
+        } 
+
+        return view('auth.register');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        if ($this->registered($request, $user)) {
+            return redirect()->route('home');
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
+    }
+    
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,6 +77,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'loft_name' => ['required', 'string'],
+            'phone' => ['required', 'string', 'unique:user_details'],
+            'address' => ['required', 'string'],
+            'distance_in_km' => ['required', 'numeric', 'min:30'],
         ]);
     }
 
@@ -64,10 +92,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->detail()->create([
+            'loft_name' => $data['loft_name'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'distance_in_km' => $data['distance_in_km']
+        ]);
+
+        $user->assignRole('User');
+
+        return $user;
     }
 }

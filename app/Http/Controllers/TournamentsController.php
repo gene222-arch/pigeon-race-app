@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Club;
+use App\Models\User;
+use App\Models\Tournament;
+use App\Models\QrCodeGenerator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\Tournament\ClockInRequest;
+use App\Http\Requests\Tournament\StoreUpdateRequest;
 
 class TournamentsController extends Controller
 {
@@ -13,7 +21,31 @@ class TournamentsController extends Controller
      */
     public function index()
     {
-        return view('app.tournament.index');
+        $timeStartedAt = null;
+
+        $hasActiveTournaments = Tournament::query()
+            ->where('is_active', '=', true)
+            ->exists();
+
+        $activeStartedTournament = Tournament::query()
+            ->firstWhere([
+                [ 'is_active', '=', true ],
+                [ 'time_started_at', '!=', null ]
+            ]);
+
+        if ($activeStartedTournament) {
+            $timeStartedAt = $activeStartedTournament->time_started_at;
+        }
+
+        $tournaments = Tournament::query()
+            ->orderBy('is_active', 'DESC')
+            ->simplePaginate(10);
+
+        return view('app.tournament.index', [
+            'tournaments' => $tournaments,
+            'hasActiveTournaments' => $hasActiveTournaments,
+            'timeStartedAt' => $timeStartedAt
+        ]);
     }
 
     /**
@@ -23,62 +55,256 @@ class TournamentsController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.tournament.create', [
+            'clubs' => Club::all(['id', 'name']),
+            'players' => User::with('detail')->get(['id', 'name'])->except(1)
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Tournament\StoreUpdateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateRequest $request)
     {
-        //
+        $clubName = Club::find($request->club_id)->name;
+
+        $data = [
+            'is_public' => $request->is_public === 'on',
+            'club_name' => $clubName,
+            'legs' => 3
+        ] + $request->validated();
+
+        $tournament = Tournament::query()->create($data);
+
+        $tournamentDetails = [];
+
+        foreach ($request->player_ids as $playerId) {
+            $tournamentDetails[] = [
+                'user_id' => $playerId
+            ];
+        }
+
+        $tournament->details()->createMany($tournamentDetails);
+
+        return Redirect::route('tournaments.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tournament $tournament)
     {
-        //
+        $tournament = Tournament::with([
+            'details' => fn ($q) => $q->orderBy('points', 'DESC')->orderBy('speed_per_minute', 'DESC')
+        ])
+        ->find($tournament->id);
+
+        return view('app.tournament.show', [
+            'tournament' => $tournament
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tournament $tournament)
     {
-        //
+        return view('app.tournament.edit', [
+            'tournament' => Tournament::with('details')->find($tournament->id),
+            'clubs' => Club::all(['id', 'name']),
+            'players' => User::with('detail')->get(['id', 'name'])->except(1)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Tournament\StoreUpdateRequest  $request
+     * @param  \App\Models\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateRequest $request, Tournament $tournament)
     {
-        //
+        $playerIds = collect($request->player_ids)->map(fn ($id) => [ 'user_id' => $id ])->toArray();
+        $clubName = Club::find($request->club_id)->name;
+
+        $data = [
+            'is_public' => $request->is_public === 'on',
+            'club_name' => $clubName
+        ] + $request->validated();
+
+        $tournament->update($data);
+
+        if (! $tournament->details->count()) {
+            $tournament->details()->createMany($playerIds);
+        } else {
+            $tournament->details()->delete();
+            $tournament->details()->createMany($playerIds);
+        }
+
+        return Redirect::route('tournaments.index');
+    }
+
+    public function clockIn(ClockInRequest $request)
+    {
+        $user = $request->user();
+
+        $clubNames = Tournament::query()
+            ->where('is_active', '=', 1)
+            ->get()
+            ->map 
+            ->club_name;
+
+
+        $clubIsInAnActiveTournament = $clubNames->filter(fn ($club) => $club === $user->club()->name)->count();
+
+        if (! $clubIsInAnActiveTournament) {
+            return redirect()->back()->with([
+                'messageOnFailed' => 'Your club had not joined any tournament.'
+            ]);
+        }
+
+        $activeTournament = $user->activeTournamentDetails();
+
+        if (! $activeTournament) {
+            return redirect()->back()->with([
+                'messageOnFailed' => 'Sorry your`re not included in the tournament.'
+            ]);
+        }
+
+        if ($activeTournament->leg_3_meter_per_minute) {
+            return redirect()->back()->with([
+                'messageOnFailed' => 'Sorry you`ve finished the tournament.'
+            ]);
+        }
+
+        $legOneMeterPerMin = $activeTournament->leg_1_meter_per_minute;
+        $legTwoMeterPerMin = $activeTournament->leg_2_meter_per_minute;
+
+        $timeStarted = $request->user()->activeTournament()->time_started_at;
+        $clockedInTime = Carbon::now()->toTimeString();
+
+        $to = Carbon::parse($clockedInTime);
+        $from = Carbon::parse($timeStarted);
+        $distance = ($user->detail->distance_in_km * 1000);
+
+        $diffInMinutes = $to->diffInMinutes($from);
+        $currentLapSpeedPerMin = ($distance / $diffInMinutes);
+
+        $speedPerMinute = 0;
+
+        $data = [
+            'updated_at' => Carbon::now(),
+            'points' => DB::raw('points + 1')
+        ];
+
+        if (! $legOneMeterPerMin) 
+        {
+            $speedPerMinute = ($currentLapSpeedPerMin / 3);
+
+            $data = $data + [
+                'leg_1_meter_per_minute' => $currentLapSpeedPerMin
+            ];
+        }
+
+        if ($legOneMeterPerMin && !$legTwoMeterPerMin) 
+        {
+            $speedPerMinute = ($legOneMeterPerMin + $currentLapSpeedPerMin) / 3;
+
+            $data = $data + [
+                'leg_2_meter_per_minute' => $currentLapSpeedPerMin
+            ];
+        }
+
+        if ($legOneMeterPerMin && $legTwoMeterPerMin) 
+        {
+            $speedPerMinute = ($legOneMeterPerMin + $legTwoMeterPerMin + $currentLapSpeedPerMin) / 3;
+
+            $data = $data + [
+                'leg_3_meter_per_minute' => $currentLapSpeedPerMin
+            ];
+        }
+
+        $data = $data + [
+            'speed_per_minute' => $speedPerMinute
+        ];
+
+        $activeTournament->update($data);
+
+        QrCodeGenerator::query()
+            ->firstWhere('value', '=', $request->qr_code)
+            ->markAsUsed();
+
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Clocked in successfully'
+        ]);
+    }
+
+    public function startTimeToActiveTournaments()
+    {
+        Tournament::query()
+            ->where([
+                [ 'is_active', '=', true ],
+                [ 'time_started_at', '=', null ]
+            ])
+            ->update([
+                'time_started_at' => Carbon::now()->toTimeString()
+            ]);
+
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Race has started successfully'
+        ]);
+    }
+
+    public function restartTimeToActiveTournaments()
+    {
+        Tournament::query()
+            ->where('is_active', '=', true)
+            ->update([
+                'time_started_at' => NULL
+            ]);
+
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Time has restarted successfully'
+        ]);
+    }
+
+    public function finish()
+    {
+        Tournament::query()
+            ->where('is_active', '=', true)
+            ->update([
+                'is_active' => false,
+                'ended_at' => Carbon::now()
+            ]);
+
+        return redirect()->back()->with([
+            'messageOnSuccess' => 'Tournament has ended successfully'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tournament $tournament)
     {
-        //
+        $tournament->details()->delete();
+        $tournament->delete();
+
+        return redirect()->back()->with([
+            'messageOnDeleteSuccess' => 'Tournament deleted successfully'
+        ]);
     }
 }

@@ -22,6 +22,15 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('user_details', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('loft_name');
+            $table->string('phone')->unique();
+            $table->string('address');
+            $table->unsignedDouble('distance_in_km')->default(0);
+        });
     }
 
     /**
@@ -31,6 +40,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('user_details');
         Schema::dropIfExists('users');
     }
 }

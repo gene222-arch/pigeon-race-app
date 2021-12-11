@@ -3,6 +3,12 @@
 @section('js')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
+    const tournamentPlayers = '<?php echo $tournaments; ?>'
+        .replace('[', '')
+        .replace(']', '')
+        .split(',')
+        .map(player => parseInt(player));;
+
     Highcharts.chart('container', {
         title: {
             text: 'Races'
@@ -11,7 +17,7 @@
             text: 'Source: positronx.io'
         },
         xAxis: {
-            categories: [ 'South Race', 'Summer Race', 'North Race' ]
+            categories: [ 'North Race', 'South Race', 'Summer Race' ]
         },
         yAxis: {
             title: {
@@ -30,7 +36,7 @@
         },
         series: [{
             name: 'Players',
-            data: [0, 200, 100]
+            data: tournamentPlayers,
         }],
         responsive: {
             rules: [{
@@ -74,25 +80,21 @@
                         <th scope="col">Name</th>
                         <th scope="col">Club</th>
                         <th scope="col">Number of Tournaments Joined</th>
-                        <th scope="col">Number of Won Tournaments</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($users)
-                        @forelse ($users as $user)
+                    @if ($userTournamentReports)
+                        @forelse ($userTournamentReports as $userTournamentReport)
                             <tr>
                                 <td>
-                                    {{ $user->id }}
+                                    {{ $userTournamentReport->id }}
                                 </td>
                                 <td>
-                                    <strong>{{ $user->name }}</strong>
+                                    <strong>{{ $userTournamentReport->player }}</strong>
                                 </td>
-                                <td>PIGEON SPORTS UNLIMITED (PSU)</td>
-                                <td align='center'>
-                                    {{ 5 + $user->id }}
-                                </td>
-                                <td align='center'>
-                                    {{ $user->id + 1 }}
+                                <td>{{ $userTournamentReport->club }}</td>
+                                <td>
+                                    {{ $userTournamentReport->tournaments_joined_count }}
                                 </td>
                             </tr>
                         @empty 
