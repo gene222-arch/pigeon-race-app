@@ -80,7 +80,6 @@
                         <th scope="col">Name</th>
                         <th scope="col">Club</th>
                         <th scope="col">Number of Tournaments Joined</th>
-                        <th scope="col">Number of Won Tournaments</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +93,7 @@
                                     <strong>{{ $userTournamentReport->player }}</strong>
                                 </td>
                                 <td>{{ $userTournamentReport->club }}</td>
-                                <td align='center'>
+                                <td>
                                     {{ $userTournamentReport->tournaments_joined_count }}
                                 </td>
                             </tr>
