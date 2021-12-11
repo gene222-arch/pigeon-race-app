@@ -18,13 +18,6 @@
                             <i class="fas fa-plus fa-2x"></i>
                         </a>
                     </div>
-                    @if ($hasActiveTournaments && !$timeStartedAt)
-                        <div class="col text-right">
-                            <a type="button" class="btn btn-warning" href="{{ route('tournaments.start.time') }}">
-                                <i class="fas fa-clock text-info mr-1"></i> Start Tournament
-                            </a>
-                        </div>
-                    @endif
                     @if ($timeStartedAt)
                         <div class="col text-right">
                             <a type="button" class="btn btn-warning" href="{{ route('tournaments.restart.time') }}">
@@ -32,12 +25,19 @@
                             </a>
                         </div>
                         <div class="col text-right">
-                            <a type="button" class="btn btn-warning" href="{{ route('tournaments.create') }}">
+                            <a type="button" class="btn btn-light" href="{{ route('tournaments.create') }}">
                                 Time started: <span class="text-secondary">{{ $timeStartedAt }}</span>
                             </a>
                         </div>
                     @endif
-                    @if ($hasActiveTournaments)
+                    @if ($hasActiveTournaments && !$timeStartedAt)
+                        <div class="col text-right">
+                            <a type="button" class="btn btn-warning" href="{{ route('tournaments.start.time') }}">
+                                <i class="fas fa-clock text-info mr-1"></i> Start Tournament
+                            </a>
+                        </div>
+                    @endif
+                    @if ($hasActiveTournaments && $timeStartedAt)
                         <div class="col text-right">
                             <a type="button" class="btn btn-danger" href="{{ route('tournaments.finish') }}">
                                 <i class="fas fa-hourglass-end mr-1"></i> End Tournament

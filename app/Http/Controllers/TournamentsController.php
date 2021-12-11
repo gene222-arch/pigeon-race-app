@@ -283,7 +283,8 @@ class TournamentsController extends Controller
         Tournament::query()
             ->where('is_active', '=', true)
             ->update([
-                'is_active' => false
+                'is_active' => false,
+                'ended_at' => Carbon::now()
             ]);
 
         return redirect()->back()->with([
