@@ -7,7 +7,7 @@
   </div>
 	<div class="p-4">
 		<div class="row mb-2 justify-content-center align-items-center">
-			<img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="60" height="65">
+			<img src="{{ asset('mulawin.png') }}" alt="" width="60" height="65">
 			<div class="col">
 				<h6><strong>{{ Auth::user()->name }}</strong></h6>
 				<small>{{ Auth::user()->email }}</small>

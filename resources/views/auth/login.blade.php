@@ -19,7 +19,7 @@
                     <span class="badge badge-secondary">YOU</span>
                 </h1>
                 <p class="text-center py-4">
-                    <img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="130" height="136"> 
+                    <img src="{{ asset('mulawin.png') }}" alt="" width="130" height="136"> 
                 </p>
                 <p class="text-center py-4 text-muted">
                     Pigeons make you <strong>smile</strong>, let them <strong>live</strong> for a while
