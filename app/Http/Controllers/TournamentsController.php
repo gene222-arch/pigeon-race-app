@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Tournament\ClockInRequest;
 use App\Http\Requests\Tournament\StoreUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class TournamentsController extends Controller
 {
@@ -104,6 +105,10 @@ class TournamentsController extends Controller
      */
     public function show(Tournament $tournament)
     {
+        $userCanViewTournament = $tournament->club_name === Auth::user()->club()->name;
+
+        if (! $userCanViewTournament) abort(403);
+
         $tournament = Tournament::with([
             'details' => fn ($q) => $q->orderBy('points', 'DESC')->orderBy('speed_per_minute', 'DESC')
         ])
