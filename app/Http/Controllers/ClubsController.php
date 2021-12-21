@@ -13,6 +13,11 @@ use Carbon\Carbon;
 
 class ClubsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role: Admin'])->except('show');
+    }
+
     /**
      * Display a listing of the resource.
      *

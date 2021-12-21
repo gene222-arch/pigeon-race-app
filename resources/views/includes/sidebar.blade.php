@@ -21,9 +21,6 @@
 			<li class="{{ request()->is('/') ? 'active' : '' }}">
 				<a href="/"><span class="fa fa-home mr-3"></span> Home</a>
 			</li>
-			{{-- <li class="{{ request()->is('player-events') ? 'active' : '' }}">
-				<a href="/player-events"><i class="fas fa-flag mr-3"></i> Player Events</a>
-			</li> --}}
 			<li class="{{ request()->is('tournaments') ? 'active' : '' }}">
 				<a href="/tournaments"><i class="fas fa-poll-h mr-3"></i> Tournaments</a>
 			</li>
@@ -40,9 +37,24 @@
 					<a href="/generate-qrcode"><i class="fas fa-qrcode mr-3"></i> Generate QR Code</a>
 				</li>
 			@endif
-			<li class="{{ request()->is('clubs') ? 'active' : '' }}">
-				<a href="/clubs"><i class="fas fa-users mr-3"></i>Clubs</a>
-			</li>
+			@hasrole('Admin')
+				<li class="{{ request()->is('clubs') ? 'active' : '' }}">
+					<a href="/clubs"><i class="fas fa-users mr-3"></i>Clubs</a>
+				</li>
+			@endhasrole
+			@hasrole('User')
+				<li class="{{ request()->is('clubs') ? 'active' : '' }}">
+					<a href="/clubs/{{ Auth::user()->club()->id }}">
+						<img 
+							class="img-responsive rounded mr-2" 
+							src="{{ Auth::user()->club()->logo_path }}" 
+							alt="Card image cap"
+							width="25"
+							height="25"
+						>
+						{{ Auth::user()->club()->name }}</a>
+				</li>
+			@endhasrole
 			@if (Auth::user()->hasRole('Admin'))
 				<li class="{{ request()->is('register') ? 'active' : '' }}">
 					<a href="/register"><i class="fas fa-user-plus mr-3"></i> Generate Player</a>
