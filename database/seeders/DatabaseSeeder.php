@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         return [
-            QrCodeGeneratorSeeder::class
+            AdminSeeder::class
         ];
     }
 }
