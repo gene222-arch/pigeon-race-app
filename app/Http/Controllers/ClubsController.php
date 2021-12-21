@@ -15,7 +15,7 @@ class ClubsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role: Admin'])->except('show');
+        $this->middleware(['role:Admin'])->except('show');
     }
 
     /**

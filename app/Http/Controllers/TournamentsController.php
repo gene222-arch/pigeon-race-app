@@ -80,16 +80,6 @@ class TournamentsController extends Controller
 
         $tournament = Tournament::query()->create($data);
 
-        $tournamentDetails = [];
-
-        foreach ($request->player_ids as $playerId) {
-            $tournamentDetails[] = [
-                'user_id' => $playerId
-            ];
-        }
-
-        $tournament->details()->createMany($tournamentDetails);
-
         return Redirect::route('tournaments.index');
     }
 
@@ -135,7 +125,7 @@ class TournamentsController extends Controller
         return view('app.tournament.edit', [
             'tournament' => Tournament::with('details')->find($tournament->id),
             'clubs' => Club::all(['id', 'name']),
-            'players' => User::with('detail')->get(['id', 'name'])->except(1)
+            'players' => Club::firstWhere('name', $tournament->club_name)->players
         ]);
     }
 
