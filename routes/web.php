@@ -42,11 +42,15 @@ Route::middleware(['auth'])->group(function ()
 
     Route::resource('player-events', PlayerEventsController::class);
 
-    Route::prefix('tournaments')->group(function () {
-        Route::post('clock-in', [TournamentsController::class, 'clockIn'])->name('tournaments.clock.in');
-        Route::get('start-time', [TournamentsController::class, 'startTimeToActiveTournaments'])->name('tournaments.start.time');
-        Route::get('restart-time', [TournamentsController::class, 'restartTimeToActiveTournaments'])->name('tournaments.restart.time');
-        Route::get('finish', [TournamentsController::class, 'finish'])->name('tournaments.finish');
+    Route::group([
+        'prefix' => 'tournaments',
+        'as' => 'tournaments.'
+    ], function () {
+        Route::post('clock-in', [TournamentsController::class, 'clockIn'])->name('clock.in');
+        Route::get('start-time', [TournamentsController::class, 'startTimeToActiveTournaments'])->name('start.time');
+        Route::get('restart-time', [TournamentsController::class, 'restartTimeToActiveTournaments'])->name('restart.time');
+        Route::get('finish', [TournamentsController::class, 'finish'])->name('finish');
+        Route::get('/players/{club}', [TournamentsController::class, 'showPlayersViaClub'])->name('players');
     });
 
     Route::resource('tournaments', TournamentsController::class);

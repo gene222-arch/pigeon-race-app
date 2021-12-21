@@ -108,22 +108,6 @@
                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group row">
                                     <div class="col-5 col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                        <label for="distance_in_km">{{ __('Distance (km)') }}</label>
-                                    </div>
-                                    <div class="col-7 col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                                        <input id="distance_in_km" type="text" class="form-control @error('distance_in_km') is-invalid @enderror" name="distance_in_km" value="{{ old('distance_in_km') }}" required autocomplete="email">
-    
-                                        @error('distance_in_km')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group row">
-                                    <div class="col-5 col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                         <label for="password">{{ __('Password') }}</label>
                                     </div>
                                     <div class="col-7 col-xs-7 col-sm-7 col-md-7 col-lg-7">
@@ -145,6 +129,31 @@
                                     <div class="col-7 col-xs-7 col-sm-7 col-md-7">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">Coordinate</span>
+                                    </div>
+                                    <select 
+                                        class="custom-select @error('coordinate_id') is-invalid @enderror"
+                                        name="coordinate_id"
+                                    >
+                                        <option value="">Select Coordinate</option>
+                                        @foreach ($coordinates as $coordinate)
+                                            <option 
+                                                value="{{ $coordinate->id }}" {{ old('coordinate_id') === $coordinate->id ? 'selected' : '' }}
+                                            >
+                                                {{ $coordinate->coordinate .' '. $coordinate->distance_in_km }}
+                                        </option>   
+                                        @endforeach
+                                    </select>
+                                    @error('coordinate_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

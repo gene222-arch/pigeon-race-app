@@ -67,7 +67,7 @@
                                         >
                                             <option>Select Club</option>
                                             @foreach ($clubs as $club)
-                                                <option value="{{ $club->id }}" {{ old('club_id') === $club->id && 'selected' }}>{{ $club->name }}</option>   
+                                                <option value="{{ $club->id }}" {{ old('club_id') === $club->id && 'selected' }}>{{ $club->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('club_id')
@@ -143,31 +143,33 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon2">Players</span>
-                                </div>
-                                <select 
-                                    class="custom-select @error('player_ids') is-invalid @enderror"
-                                    name="player_ids[]"
-                                    multiple
-                                >
-                                    @foreach ($players as $player)
-                                        <option 
-                                            value="{{ $player->id }}" {{ in_array($player->id, old('player_ids') ?? []) ? 'selected' : '' }}
-                                        >
-                                            {{ $player->detail->loft_name }}
-                                    </option>   
-                                    @endforeach
-                                </select>
-                                @error('player_ids')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                        @if(old('club_id') && !$players)
+                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">Players</span>
                                     </div>
-                                @enderror
+                                    <select 
+                                        class="custom-select @error('player_ids') is-invalid @enderror"
+                                        name="player_ids[]"
+                                        multiple
+                                    >
+                                        @foreach ($players as $player)
+                                            <option 
+                                                value="{{ $player->id }}" {{ in_array($player->id, old('player_ids') ?? []) ? 'selected' : '' }}
+                                            >
+                                                {{ $player->detail->loft_name }}
+                                        </option>   
+                                        @endforeach
+                                    </select>
+                                    @error('player_ids')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif 
                         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" name="is_public" class="custom-control-input" id="customSwitch1" checked>
@@ -186,5 +188,11 @@
                 </a>
             </div>
         </form>
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
+            <form action="{{ route('tournaments.players', 1) }}" method="get">
+                @csrf
+                <button class="btn btn-info" type="submit">Show Club Players</button>
+            </form>   
+        </div>
     </div>
 @endsection

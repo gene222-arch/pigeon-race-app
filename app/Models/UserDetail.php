@@ -11,11 +11,16 @@ class UserDetail extends Model
 
     protected $fillable = [
         'user_id',
+        'coordinate_id',
         'loft_name',
         'phone',
-        'address',
-        'distance_in_km'
+        'address'
     ];
 
     public $timestamps = false;
+
+    public function coordinate()
+    {
+        return $this->belongsTo(Coordinate::class);
+    }
 }

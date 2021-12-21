@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Coordinate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
@@ -47,7 +48,9 @@ class RegisterController extends Controller
             abort(403);
         } 
 
-        return view('auth.register');
+        return view('auth.register', [
+            'coordinates' => Coordinate::all(['id', 'coordinate', 'distance_in_km'])
+        ]);
     }
 
     public function register(Request $request)
@@ -80,7 +83,7 @@ class RegisterController extends Controller
             'loft_name' => ['required', 'string'],
             'phone' => ['required', 'string', 'unique:user_details'],
             'address' => ['required', 'string'],
-            'distance_in_km' => ['required', 'numeric', 'min:30'],
+            'coordinate_id' => ['required', 'exists:coordinates,id'],
         ]);
     }
 
@@ -102,7 +105,7 @@ class RegisterController extends Controller
             'loft_name' => $data['loft_name'],
             'phone' => $data['phone'],
             'address' => $data['address'],
-            'distance_in_km' => $data['distance_in_km']
+            'coordinate_id' => $data['coordinate_id']
         ]);
 
         $user->assignRole('User');

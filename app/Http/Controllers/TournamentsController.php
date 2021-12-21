@@ -56,8 +56,7 @@ class TournamentsController extends Controller
     public function create()
     {
         return view('app.tournament.create', [
-            'clubs' => Club::all(['id', 'name']),
-            'players' => User::with('detail')->get(['id', 'name'])->except(1)
+            'clubs' => Club::all(['id', 'name'])
         ]);
     }
 
@@ -75,7 +74,9 @@ class TournamentsController extends Controller
             'is_public' => $request->is_public === 'on',
             'club_name' => $clubName,
             'legs' => 3
-        ] + $request->validated();
+        ];
+
+        $data = $data + $request->validated();
 
         $tournament = Tournament::query()->create($data);
 
@@ -90,6 +91,19 @@ class TournamentsController extends Controller
         $tournament->details()->createMany($tournamentDetails);
 
         return Redirect::route('tournaments.index');
+    }
+
+    public function showPlayersViaClub(Club $club)
+    {
+        $players = User::query()
+            ->whereHas('clubUsers', fn ($q) => $q->club_id = $club->id)
+            ->with('detail')
+            ->get(['id', 'name'])
+            ->except(1);
+            
+        return view('app.tournament.create', [
+            'players' => $players
+        ]);
     }
 
     /**
@@ -195,7 +209,7 @@ class TournamentsController extends Controller
 
         $to = Carbon::parse($clockedInTime);
         $from = Carbon::parse($timeStarted);
-        $distance = ($user->detail->distance_in_km * 1000);
+        $distance = ($user->detail->coordinate->distance_in_km * 1000);
 
         $diffInMinutes = $to->diffInMinutes($from);
         $currentLapSpeedPerMin = ($distance / $diffInMinutes);
