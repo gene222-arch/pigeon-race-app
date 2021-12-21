@@ -145,11 +145,36 @@
                                             <option 
                                                 value="{{ $coordinate->id }}" {{ old('coordinate_id') === $coordinate->id ? 'selected' : '' }}
                                             >
-                                                {{ $coordinate->coordinate .' '. $coordinate->distance_in_km }}
+                                                {{ $coordinate->coordinate .' '. $coordinate->distance_in_km . '(km)' }}
                                         </option>   
                                         @endforeach
                                     </select>
                                     @error('coordinate_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon2">Club</span>
+                                    </div>
+                                    <select 
+                                        class="custom-select @error('club_id') is-invalid @enderror"
+                                        name="club_id"
+                                    >
+                                        <option value="">Select Club</option>
+                                        @foreach ($clubs as $club)
+                                            <option 
+                                                value="{{ $club->id }}" {{ old('club_id') === $club->id ? 'selected' : '' }}
+                                            >
+                                                {{ $club->name }}
+                                        </option>   
+                                        @endforeach
+                                    </select>
+                                    @error('club_id')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

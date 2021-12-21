@@ -14,4 +14,6 @@ class ClubUser extends Model
         'user_id',
         'joined_at'
     ];
+
+    public $timestamps = false;
 }

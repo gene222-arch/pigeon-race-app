@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Club;
 use App\Models\Coordinate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -49,7 +50,8 @@ class RegisterController extends Controller
         } 
 
         return view('auth.register', [
-            'coordinates' => Coordinate::all(['id', 'coordinate', 'distance_in_km'])
+            'coordinates' => Coordinate::all(['id', 'coordinate', 'distance_in_km']),
+            'clubs' => Club::all(['id', 'name'])
         ]);
     }
 
@@ -83,7 +85,8 @@ class RegisterController extends Controller
             'loft_name' => ['required', 'string'],
             'phone' => ['required', 'string', 'unique:user_details'],
             'address' => ['required', 'string'],
-            'coordinate_id' => ['required', 'exists:coordinates,id'],
+            'coordinate_id' => ['required', 'integer', 'exists:coordinates,id'],
+            'club_id' => ['required', 'integer', 'exists:clubs,id']
         ]);
     }
 
@@ -106,6 +109,10 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'address' => $data['address'],
             'coordinate_id' => $data['coordinate_id']
+        ]);
+
+        $user->clubUsers()->create([
+            'club_id' => $data['club_id']
         ]);
 
         $user->assignRole('User');
