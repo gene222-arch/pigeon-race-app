@@ -10,18 +10,6 @@
                 </div>   
                 <div class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="row align-items-center">
-                        {{-- <div class="col">
-                            <form action="{{ route('generate.qrcode.mark.all.as.used') }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button 
-                                    class="btn btn-warning w-100 mb-1"
-                                    target="_blank"
-                                >
-                                    Mark all as used
-                                </button>
-                            </form>
-                        </div> --}}
                         @if (! $qrCodes->count())
                             <div class="col mb-2">
                                 <form action="{{ route('generate.qrcode.store') }}" method="POST">
@@ -70,7 +58,7 @@
                         <span class="text-center">{{ $qrCode->value }}</</span>
                     </div>
                 @empty
-                    <h4>Empty</h4>
+                    
                 @endforelse
             </div>
         </div>

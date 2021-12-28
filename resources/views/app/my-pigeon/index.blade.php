@@ -83,7 +83,7 @@
                     <td>{{ $myPigeon->created_at }}</td>
                 </tr>
             @empty
-                <h4>Empty</h4>
+                
             @endforelse
           </tbody>
       </table>
