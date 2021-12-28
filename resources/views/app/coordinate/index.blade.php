@@ -17,56 +17,58 @@
       <div class="card-header bg-warning">
           <h5>View Coordinates</h5>
       </div>
-      <table class="table table-hover">
-          <thead class="thead-dark">
-              <tr>
-                <th scope="col">Action</th>
-                <th scope="col">Name</th>
-                <th scope="col">Coordinates</th>
-                <th scope="col">Distance in KM</th>
-              </tr>
-          </thead>
-          <tbody>
-              @forelse ($coordinates as $coordinate)
+      <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
                 <tr>
-                    <td class="text-center">
-                        <a type="button" class="btn btn-info btn-block" href="{{ route('coordinates.show', [ 'coordinate' => $coordinate->id ]) }}">
-                            <i class="fas fa-eye text-white"></i>
-                        </a>
-                        @hasrole('Admin')
-                            <a type="button" class="btn btn-warning btn-block" href="{{ route('coordinates.edit', [ 'coordinate' => $coordinate->id ]) }}">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        @endhasrole
-                        <form method="POST" action="{{ route('coordinates.destroy', $coordinate->id) }}">
-                            @csrf
-                            @method('DELETE')
-                        
-                            <div class="form-group my-2">
-                                <button 
-                                    type="submit" 
-                                    class="btn btn-danger btn-block"
-                                >
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </td>
-                    <td>
-                        {{ $coordinate->name }}
-                    </td>
-                    <td>
-                        {{ $coordinate->coordinate }}
-                    </td>
-                    <td>
-                        {{ $coordinate->distance_in_km }}
-                    </td>
+                  <th scope="col">Action</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Coordinates</th>
+                  <th scope="col">Distance in KM</th>
                 </tr>
-              @empty
-                  
-              @endforelse
-          </tbody>
-      </table>
+            </thead>
+            <tbody>
+                @forelse ($coordinates as $coordinate)
+                  <tr>
+                      <td class="text-center">
+                          <a type="button" class="btn btn-info btn-block" href="{{ route('coordinates.show', [ 'coordinate' => $coordinate->id ]) }}">
+                              <i class="fas fa-eye text-white"></i>
+                          </a>
+                          @hasrole('Admin')
+                              <a type="button" class="btn btn-warning btn-block" href="{{ route('coordinates.edit', [ 'coordinate' => $coordinate->id ]) }}">
+                                  <i class="fas fa-edit"></i>
+                              </a>
+                          @endhasrole
+                          <form method="POST" action="{{ route('coordinates.destroy', $coordinate->id) }}">
+                              @csrf
+                              @method('DELETE')
+                          
+                              <div class="form-group my-2">
+                                  <button 
+                                      type="submit" 
+                                      class="btn btn-danger btn-block"
+                                  >
+                                      <i class="fas fa-trash"></i>
+                                  </button>
+                              </div>
+                          </form>
+                      </td>
+                      <td>
+                          {{ $coordinate->name }}
+                      </td>
+                      <td>
+                          {{ $coordinate->coordinate }}
+                      </td>
+                      <td>
+                          {{ $coordinate->distance_in_km }}
+                      </td>
+                  </tr>
+                @empty
+                    
+                @endforelse
+            </tbody>
+        </table>
+      </div>
   </div>
 </div>
 @endsection

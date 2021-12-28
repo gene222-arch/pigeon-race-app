@@ -34,74 +34,76 @@
       <div class="card-header bg-warning">
           <h5>Clubs</h5>
       </div>
-      <table class="table table-hover">
-          <thead class="thead-dark">
-              <tr>
-                  <th scope="col">Actions</th>
-                  <th scope="col">Logo</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Current Balance</th>
-                  <th scope="col">Entry Fee Reversal</th>
-                  <th scope="col">Club Coordinates</th>
-                  <th scope="col">Player Coordinates</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Country</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Created At</th>
-              </tr>
-          </thead>
-          <tbody>
-            @forelse ($clubs as $club)
+      <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
                 <tr>
-                    <td class="text-center">
-                        <a type="button" class="btn btn-info btn-block" href="{{ route('clubs.show', [ 'club' => $club->id ]) }}">
-                            <i class="fas fa-eye text-white"></i>
-                        </a>
-                        @hasrole('Admin')
-                            <a type="button" class="btn btn-warning btn-block" href="{{ route('clubs.edit', [ 'club' => $club->id ]) }}">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        @endhasrole
-                        @hasrole('Admin')
-                            <form method="POST" action="{{ route('clubs.destroy', $club->id) }}">
-                                @csrf
-                                @method('DELETE')
-                            
-                                <div class="form-group my-2">
-                                    <button 
-                                        type="submit" 
-                                        class="btn btn-danger btn-block"
-                                    >
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        @endhasrole
-                    </td>
-                    <td>
-                        <img src="{{ $club->logo_path }}" width="100" height="100" alt="">
-                    </td>
-                    <td>
-                        {{ $club->name }}
-                    </td>
-                    <td>
-                        {{ $club->current_balance }}
-                    </td>
-                    <td>{{ $club->entry_fee_reversal }}</td>
-                    <td>{{ $club->club_coordinates }}</td>
-                    <td>{{ $club->player_coordinates }}</td>
-                    <td>{{ $club->address }}</td>
-                    <td>{{ $club->created_at }}</td>
-                    <td>
-                        <span class="badge {{ $club->status !== 'Active' ? 'badge-disabled' : 'badge-success' }}">{{ $club->status }}</span>
-                    </td>
-                    <td>{{ $club->created_at }}</td>
+                    <th scope="col">Actions</th>
+                    <th scope="col">Logo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Current Balance</th>
+                    <th scope="col">Entry Fee Reversal</th>
+                    <th scope="col">Club Coordinates</th>
+                    <th scope="col">Player Coordinates</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Created At</th>
                 </tr>
-            @empty
-                
-            @endforelse
-          </tbody>
-      </table>
+            </thead>
+            <tbody>
+              @forelse ($clubs as $club)
+                  <tr>
+                      <td class="text-center">
+                          <a type="button" class="btn btn-info btn-block" href="{{ route('clubs.show', [ 'club' => $club->id ]) }}">
+                              <i class="fas fa-eye text-white"></i>
+                          </a>
+                          @hasrole('Admin')
+                              <a type="button" class="btn btn-warning btn-block" href="{{ route('clubs.edit', [ 'club' => $club->id ]) }}">
+                                  <i class="fas fa-edit"></i>
+                              </a>
+                          @endhasrole
+                          @hasrole('Admin')
+                              <form method="POST" action="{{ route('clubs.destroy', $club->id) }}">
+                                  @csrf
+                                  @method('DELETE')
+                              
+                                  <div class="form-group my-2">
+                                      <button 
+                                          type="submit" 
+                                          class="btn btn-danger btn-block"
+                                      >
+                                          <i class="fas fa-trash"></i>
+                                      </button>
+                                  </div>
+                              </form>
+                          @endhasrole
+                      </td>
+                      <td>
+                          <img src="{{ $club->logo_path }}" width="100" height="100" alt="">
+                      </td>
+                      <td>
+                          {{ $club->name }}
+                      </td>
+                      <td>
+                          {{ $club->current_balance }}
+                      </td>
+                      <td>{{ $club->entry_fee_reversal }}</td>
+                      <td>{{ $club->club_coordinates }}</td>
+                      <td>{{ $club->player_coordinates }}</td>
+                      <td>{{ $club->address }}</td>
+                      <td>{{ $club->created_at }}</td>
+                      <td>
+                          <span class="badge {{ $club->status !== 'Active' ? 'badge-disabled' : 'badge-success' }}">{{ $club->status }}</span>
+                      </td>
+                      <td>{{ $club->created_at }}</td>
+                  </tr>
+              @empty
+                  
+              @endforelse
+            </tbody>
+        </table>
+      </div>
   </div>
 </div>
 @endsection
