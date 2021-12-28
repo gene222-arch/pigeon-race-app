@@ -73,36 +73,38 @@
             <div class="card-header bg-warning">
                 <h5><i class="fas fa-users fa-1x mr-3"></i>Player Lists</h5>
             </div>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Club</th>
-                        <th scope="col">Number of Tournaments Joined</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if ($userTournamentReports)
-                        @forelse ($userTournamentReports as $userTournamentReport)
-                            <tr>
-                                <td>
-                                    {{ $userTournamentReport->id }}
-                                </td>
-                                <td>
-                                    <strong>{{ $userTournamentReport->player }}</strong>
-                                </td>
-                                <td>{{ $userTournamentReport->club }}</td>
-                                <td>
-                                    {{ $userTournamentReport->tournaments_joined_count }}
-                                </td>
-                            </tr>
-                        @empty 
-                            <h4>Empty</h4>
-                        @endforelse
-                    @endif
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Club</th>
+                            <th scope="col">Number of Tournaments Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($userTournamentReports)
+                            @forelse ($userTournamentReports as $userTournamentReport)
+                                <tr>
+                                    <td>
+                                        {{ $userTournamentReport->id }}
+                                    </td>
+                                    <td>
+                                        <strong>{{ $userTournamentReport->player }}</strong>
+                                    </td>
+                                    <td>{{ $userTournamentReport->club }}</td>
+                                    <td>
+                                        {{ $userTournamentReport->tournaments_joined_count }}
+                                    </td>
+                                </tr>
+                            @empty 
+                                <h4>Empty</h4>
+                            @endforelse
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
