@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-xl navbar-dark shadow-sm app-layout-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="32" height="36"> 
+                    <img src="{{ asset('mulawin.png') }}" alt="" width="32" height="36"> 
                     <strong>Mulawin</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
