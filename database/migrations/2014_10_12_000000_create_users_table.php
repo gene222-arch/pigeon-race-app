@@ -26,10 +26,10 @@ class CreateUsersTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('coordinate_id');
             $table->string('loft_name');
             $table->string('phone')->unique();
             $table->string('address');
-            $table->unsignedDouble('distance_in_km')->default(0);
         });
     }
 
