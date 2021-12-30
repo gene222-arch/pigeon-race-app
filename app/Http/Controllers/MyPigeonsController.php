@@ -6,6 +6,7 @@ use App\Models\MyPigeon;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\MyPigeon\StoreRequest;
 use App\Http\Requests\MyPigeon\UpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MyPigeonsController extends Controller
 {
@@ -17,7 +18,7 @@ class MyPigeonsController extends Controller
     public function index()
     {
         return view('app.my-pigeon.index', [
-            'myPigeons' => MyPigeon::latest()->get()
+            'myPigeons' => Auth::user()->pigeons
         ]);
     }
 
