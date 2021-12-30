@@ -68,7 +68,7 @@
                         <th scope="col">Rank</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email Address</th>
-                        <th scope="col">Created At</th>
+                        <th scope="col">Date joined</th>
                     </tr>
                 </thead>
                 <tbody>
