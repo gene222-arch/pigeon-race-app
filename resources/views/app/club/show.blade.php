@@ -66,11 +66,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Rank</th>
-                        <th scope="col">Avatar</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email Address</th>
-                        <th scope="col">Ring Band No.</th>
-                        <th scope="col">Points</th>
                         <th scope="col">Created At</th>
                     </tr>
                 </thead>
@@ -78,18 +75,9 @@
                   @forelse ($club->players as $player)
                       <tr>
                           <td>{{ $player->id }}</td>
-                          <td>
-                              <img src="{{ $player->logo_path }}" width="100" height="100" alt="">
-                          </td>
-                          <td>
-                              {{ $player->name }}
-                          </td>
-                          <td>
-                            {{ $player->email }}
-                          </td>
-                          <td>{{ '' }}</td>
-                          <td>{{ '' }}</td>
-                          <td>{{ $player->created_at }}</td>
+                          <td>{{ $player->name }}</td>
+                          <td>{{ $player->email }}</td>
+                          <td>{{ \Carbon\Carbon::parse($player->created_at)->format('Y M, d') }}</td>
                       </tr>
                   @empty
                       
