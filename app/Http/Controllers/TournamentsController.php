@@ -105,14 +105,15 @@ class TournamentsController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        $userCanViewTournament = $tournament->club_name === Auth::user()->club()->name;
-
-        if (! $userCanViewTournament) abort(403);
+        if (! Auth::user()->hasRole('Admin')) {
+            $userCanViewTournament = $tournament->club_name === Auth::user()->club()?->name;
+            if (! $userCanViewTournament) abort(403);
+        }
 
         $tournament = Tournament::with([
             'details' => fn ($q) => $q->orderBy('points', 'DESC')->orderBy('speed_per_minute', 'DESC')
         ])
-        ->find($tournament->id);
+            ->find($tournament->id);
 
         return view('app.tournament.show', [
             'tournament' => $tournament
