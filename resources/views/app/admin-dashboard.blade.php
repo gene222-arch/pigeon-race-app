@@ -3,11 +3,13 @@
 @section('js')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    const tournamentPlayers = '<?php echo $tournaments; ?>'
-        .replace('[', '')
-        .replace(']', '')
-        .split(',')
-        .map(player => parseInt(player));;
+    let tournamentPlayers = JSON.parse('<?= $tournaments ?>');
+
+    const data = [
+        tournamentPlayers['North Race'],
+        tournamentPlayers['South Race'],
+        tournamentPlayers['Summer Race']
+    ];
 
     Highcharts.chart('container', {
         title: {
@@ -36,7 +38,7 @@
         },
         series: [{
             name: 'Players',
-            data: tournamentPlayers,
+            data,
         }],
         responsive: {
             rules: [{

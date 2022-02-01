@@ -39,11 +39,21 @@ class HomeController extends Controller
                 ->groupBy('type')
                 ->orderBy('type')
                 ->get()
-                ->map(fn ($tournament) => $tournament->details_count);
+                ->mapToGroups(fn ($tournament, $key) => [$tournament['type'] => $tournament->details_count]);
+
+            $data = collect([
+                "North Race" => 0,
+                "South Race" => 0,
+                "Summer Race" => 0
+            ]);
+
+            foreach ($tournamentDetails as $key => $value) {
+                $data[$key] = $value->sum();
+            }
 
             return view('app.admin-dashboard', [
                 'userTournamentReports' => $reports->playerTournamentReports(),
-                'tournaments' => $tournamentDetails
+                'tournaments' => $data
             ]);
         }
 
