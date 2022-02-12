@@ -33,7 +33,7 @@ class QrCodeGeneratorController extends Controller
     {
         for ($i = 0; $i < 50; $i++) { 
             QrCodeGenerator::create([
-                'value' => Str::random(8)
+                'value' => Str::random(5)
             ]);
         }
 
