@@ -44,7 +44,7 @@
 			@endhasrole
 			@hasrole('User')
 				<li class="{{ request()->is('clubs') ? 'active' : '' }}">
-					<a href="/clubs/{{ Auth::user()->club()->id }}">
+					<a href="/clubs/{{ Auth::user()?->club()?->id }}">
 						<img 
 							class="img-responsive rounded mr-2" 
 							src="{{ Auth::user()->club()->logo_path }}" 
