@@ -207,7 +207,7 @@ class TournamentsController extends Controller
         $from = Carbon::parse($timeStarted);
         $distance = ($user->detail->coordinate->distance_in_km * 1000);
 
-        $diffInMinutes = $to->diffInMinutes($from);
+        $diffInMinutes = $to->diffInMinutes($from) || 1;
         $currentLapSpeedPerMin = ($distance / $diffInMinutes);
 
         $speedPerMinute = 0;
