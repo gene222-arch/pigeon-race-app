@@ -85,7 +85,6 @@
                       <td>{{ $club->club_coordinates }}</td>
                       <td>{{ $club->country }}</td>
                       <td>{{ $club->address }}</td>
-                      <td>{{ $club->created_at }}</td>
                       <td>
                           <span class="badge {{ $club->status !== 'Active' ? 'badge-disabled' : 'badge-success' }}">{{ $club->status }}</span>
                       </td>
