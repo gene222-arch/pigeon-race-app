@@ -42,9 +42,8 @@
                     <th scope="col">Logo</th>
                     <th scope="col">Name</th>
                     <th scope="col">Club Coordinates</th>
-                    <th scope="col">Player Coordinates</th>
-                    <th scope="col">Address</th>
                     <th scope="col">Country</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Status</th>
                     <th scope="col">Created At</th>
                 </tr>
