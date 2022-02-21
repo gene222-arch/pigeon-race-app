@@ -29,30 +29,10 @@
                     <li class="list-group-item">
                         <div class="row align-items-center justify-space-between">
                             <div class="col">
-                                <strong class="text-secondary">Current Balance</strong>
-                            </div>
-                            <div class="col">
-                                {{ $club->current_balance }}
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row align-items-center justify-space-between">
-                            <div class="col">
                                 <strong class="text-secondary">Address</strong>
                             </div>
                             <div class="col">
                                 {{ $club->address }}
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row align-items-center justify-space-between">
-                            <div class="col">
-                                <strong class="text-secondary">Player Coordinates</strong>
-                            </div>
-                            <div class="col">
-                                {{ $club->player_coordinates }}
                             </div>
                         </div>
                     </li>
