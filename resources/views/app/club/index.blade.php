@@ -41,8 +41,6 @@
                     <th scope="col">Actions</th>
                     <th scope="col">Logo</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Current Balance</th>
-                    <th scope="col">Entry Fee Reversal</th>
                     <th scope="col">Club Coordinates</th>
                     <th scope="col">Player Coordinates</th>
                     <th scope="col">Address</th>
@@ -85,12 +83,8 @@
                       <td>
                           {{ $club->name }}
                       </td>
-                      <td>
-                          {{ $club->current_balance }}
-                      </td>
-                      <td>{{ $club->entry_fee_reversal }}</td>
                       <td>{{ $club->club_coordinates }}</td>
-                      <td>{{ $club->player_coordinates }}</td>
+                      <td>{{ $club->country }}</td>
                       <td>{{ $club->address }}</td>
                       <td>{{ $club->created_at }}</td>
                       <td>
