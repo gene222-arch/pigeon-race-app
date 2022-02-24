@@ -29,7 +29,9 @@ class MyPigeonsController extends Controller
      */
     public function create()
     {
-        return view('app.my-pigeon.create');
+        return view('app.my-pigeon.create', [
+            'bloodlines' => MyPigeon::$bloodlines
+        ]);
     }
 
     /**

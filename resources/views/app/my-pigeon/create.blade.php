@@ -122,20 +122,46 @@
                                 <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('remarks') }}</textarea>
                             </div>
                         </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon1">Bloodline</span>
+                        @if (!old('bloodline') || in_array(old('bloodline'), $bloodlines))
+                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
+                                <select class="form-control bloodline @error('bloodline') is-invalid @enderror" name="bloodline">
+                                    <option>Bloodline</option>
+                                        @foreach ($bloodlines as $bloodline)
+                                        <option value="{{ $bloodline }}" {{ old('bloodline') === $bloodline }}>{{ $bloodline }}</option>
+                                    @endforeach
+                                </select>
+                                @error('blooodline')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        @endif
+                        <div class="col-12">
+                            <div class="others" style="display: {{ !old('bloodline') || in_array(old('bloodline'), $bloodlines) ? 'none' : 'block' }}">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon2">Bloodline</span>
+                                    </div>
+                                    <input 
+                                        id="bloodline" 
+                                        type="text" 
+                                        name="bloodline" 
+                                        class="form-control @error('bloodline') is-invalid @enderror" 
+                                        value="{{ old('bloodline') }}"
+                                        aria-describedby="basic-addon2"
+                                    >
+                                    @error('bloodline')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                                <input 
-                                    id="bloodline" 
-                                    type="text" 
-                                    name="bloodline" 
-                                    class="form-control @error('bloodline') is-invalid @enderror" 
-                                    value="{{ old('bloodline') }}"
-                                    aria-describedby="basic-addon1"
-                                    aria-label="bloodline"
-                                >
+                                @error('blooodline')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
@@ -158,4 +184,25 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        const bloodLine = document.querySelector('.bloodline');
+
+        bloodLine
+            .addEventListener('change', (e) => {
+                const bl = e.target.value;
+
+                if (bl === 'others') 
+                {
+                    document
+                        .querySelector('.others')
+                        .style 
+                        .display = 'block';
+
+                    bloodLine.style.display = 'none';
+                }
+            });
+    </script>
 @endsection

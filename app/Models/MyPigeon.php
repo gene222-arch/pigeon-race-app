@@ -20,6 +20,20 @@ class MyPigeon extends Model
         'status'
     ];
 
+    public static array $bloodlines = [
+        'Alfons',
+        'Silvere toye',
+        'Janssen',
+        'Jan Aarden',
+        'Emiel deweardt',
+        'Bastin',
+        'Van den brouke',
+        'Waterhouse bekaert',
+        'Staf van reet',
+        'Stichelbault',
+        'others'
+    ];
+
     public static function boot()
     {
         parent::boot();
