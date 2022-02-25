@@ -73,6 +73,7 @@
                                 <th scope="col">Leg 1 meter per minute</th>
                                 <th scope="col">Leg 2 meter per minute</th>
                                 <th scope="col">Leg 3 meter per minute</th>
+                                <th scope="col">Time</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -86,6 +87,7 @@
                                     <td>{{ $detail->leg_1_meter_per_minute }}</td>
                                     <td>{{ $detail->leg_2_meter_per_minute }}</td>
                                     <td>{{ $detail->leg_3_meter_per_minute }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($detail->created_at)->format('h:i:s A') }}</td>
                                 </tr>
                               @endforeach
                             </tbody>
